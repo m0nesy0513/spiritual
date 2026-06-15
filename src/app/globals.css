@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* ============================================
+   精神避难所 — 全局样式
+   柔和、温暖、舒缓基调
+============================================ */
+
+@theme inline {
+  --color-background: #fffbeb;  /* amber-50 */
+  --color-foreground: #1f2937;  /* gray-800 */
+  --color-primary: #d97706;     /* amber-600 */
+  --color-primary-light: #fbbf24; /* amber-400 */
+  --color-primary-dark: #b45309;  /* amber-700 */
+  --color-muted: #9ca3af;       /* gray-400 */
+  --color-card: #ffffff;
+  --color-danger: #dc2626;      /* red-600 */
+  --color-success: #16a34a;     /* green-600 */
+}
+
+/* 基础重置 */
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 移动端 tap 高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 安全区域适配 */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 卡片通用样式 */
+.card {
+  background: var(--color-card);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.btn-primary:active {
+  opacity: 0.85;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+}
+
+/* 次按钮 */
+.btn-secondary {
+  background: var(--color-card);
+  color: var(--color-foreground);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+}
+
+/* 危险按钮 */
+.btn-danger {
+  background: var(--color-danger);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+}
+
+/* 底部固定区域 */
+.bottom-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-card);
+  border-top: 1px solid #f3f4f6;
+  padding: 0.75rem 1rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+}
+
+/* 底部导航 */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-card);
+  border-top: 1px solid #f3f4f6;
+  padding: 0.5rem 0;
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+}
+
+/* 中间相机按钮 */
+.camera-btn {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1.25rem;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
+}
+
+/* 全屏弹层 */
+.fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 滚动条隐藏（移动端） */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 输入框基础样式 */
+.input-base {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background: white;
+}
+.input-base:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+/* 标签样式 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background: #fef3c7;  /* amber-100 */
+  color: #92400e;        /* amber-800 */
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+/* 加载动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
