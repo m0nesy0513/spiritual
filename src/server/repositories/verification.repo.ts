@@ -1,4 +1,4 @@
-import { query } from '@/lib/db'
+import { query, execute } from '@/lib/db'
 import { createHash, randomInt } from 'crypto'
 
 function hashCode(code: string): string {
@@ -16,7 +16,7 @@ export const VerificationRepo = {
     const code = process.env.SKIP_VERIFICATION === 'true' ? '000000' : String(randomInt(100000, 999999))
     const hash = hashCode(code)
 
-    await query(
+    await execute(
       `INSERT INTO verification_codes (target_type, target_value, code_hash, purpose, expires_at)
        VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))`,
       [targetType, targetValue, hash, purpose],
@@ -43,7 +43,7 @@ export const VerificationRepo = {
     if (rows.length === 0) return false
 
     // 标记已使用
-    await query(
+    await execute(
       'UPDATE verification_codes SET consumed_at = NOW() WHERE id = ?',
       [rows[0].id],
     )

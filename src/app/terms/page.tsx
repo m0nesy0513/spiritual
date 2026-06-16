@@ -1,8 +1,14 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 export default function TermsPage() {
+  const router = useRouter()
+
   return (
     <div className="min-h-screen bg-amber-50">
       <div className="max-w-lg mx-auto px-6 py-8">
-        <a href="/register" className="text-amber-600 text-sm mb-4 inline-block">← 返回注册</a>
+        <button onClick={() => router.back()} className="text-amber-600 text-sm mb-4 inline-block">← 返回</button>
         <h1 className="text-2xl font-bold text-gray-800 mb-6">用户协议</h1>
 
         <div className="card space-y-4 text-sm text-gray-600 leading-relaxed">

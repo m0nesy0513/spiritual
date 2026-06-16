@@ -1,6 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import { uploadConfig } from '@/config/upload.config'
+
+// 确保基于项目根目录
+const PROJECT_ROOT = process.cwd()
+const UPLOAD_BASE = path.join(PROJECT_ROOT, 'uploads')
 
 /**
  * 文件存储适配器 — 本地存储实现
@@ -25,7 +28,7 @@ export async function saveFile(
   ownerUserId: string,
   filename: string,
 ): Promise<StoredFile> {
-  const dir = path.join(uploadConfig.baseDir, subDir)
+  const dir = path.join(UPLOAD_BASE, subDir)
   ensureDir(dir)
 
   const storagePath = path.join(dir, filename)

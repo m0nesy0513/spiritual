@@ -1,4 +1,4 @@
-import { query, transaction } from '@/lib/db'
+import { query, execute, transaction } from '@/lib/db'
 import { hashPassword, comparePassword, validatePassword, validateUsername } from '@/lib/auth'
 import { UserRepo } from '@/server/repositories/user.repo'
 import { VerificationRepo } from '@/server/repositories/verification.repo'
@@ -33,7 +33,7 @@ export async function updateUsername(userId: number, username: string) {
   const check = validateUsername(username)
   if (!check.valid) throw new ValidationError(check.message!)
 
-  await query('UPDATE users SET username = ? WHERE id = ?', [username, userId])
+  await execute('UPDATE users SET username = ? WHERE id = ?', [username, userId])
   return { username }
 }
 
@@ -64,14 +64,14 @@ export async function updateAvatar(userId: number, file: File) {
   )
 
   // 更新用户头像引用
-  await query('UPDATE users SET avatar_file_id = ? WHERE id = ?', [result.insertId, userId])
+  await execute('UPDATE users SET avatar_file_id = ? WHERE id = ?', [result.insertId, userId])
 
   // 删除旧头像
   if (oldFileId) {
     const oldFiles = await query<any>('SELECT * FROM file_assets WHERE id = ?', [oldFileId])
     if (oldFiles[0]) {
       await deleteFile(oldFiles[0].storage_path)
-      await query('DELETE FROM file_assets WHERE id = ?', [oldFileId])
+      await execute('DELETE FROM file_assets WHERE id = ?', [oldFileId])
     }
   }
 
@@ -123,7 +123,7 @@ export async function bindCredential(userId: number, credentialType: 'phone' | '
     [userId],
   )
 
-  await query(
+  await execute(
     `INSERT INTO user_credentials (user_id, credential_type, credential_value, password_hash, is_primary)
      VALUES (?, ?, ?, ?, FALSE)`,
     [userId, credentialType, credentialValue, passwordHash[0].password_hash],
