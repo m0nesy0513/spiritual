@@ -5,100 +5,118 @@
 
 ---
 
+## [0.3.0] — 2026-06-17
+
+### 新增
+
+**百宝箱完整内容**
+- 全部 8 个分类导入高质量种子数据，总计 164 条（xlsx 源文件 7 个）
+- 每条含 Markdown 正文、适用场景、来源引用、标签
+- 34 条首页推荐，每日首页随机展示 3 条
+
+**个人笔记**
+- CRUD 完整功能：列表、新建、查看、编辑、删除
+- API：`GET/POST /api/notes` + `GET/PATCH/DELETE /api/notes/[id]`
+- 支持标签、关联来源（历史/知识），来源可点击跳转
+- 搜索中文输入法兼容
+
+**首页推荐**
+- 每日随机展示 3 条知识条目
+- 摘要优先用适用场景而非正文截断
+
+**百宝箱 UI**
+- 分类栏横向滚动 + 桌面左右箭头按钮（200px 平滑）/ 手机手指滑动
+- 切换分类保持滚动位置
+- 条目卡片分类标签
+- Markdown 渲染：##、**粗体**、- 列表
+
+### 修复
+- Windows spawn EPERM：`experimental.workerThreads: true` + 动态路由 `force-dynamic`
+- 搜索中文输入法 composition 事件处理（历史/百宝箱/笔记）
+- 人设/焦虑标签重复渲染
+- 法律页面返回按钮 → `router.back()`
+- 分析页底部操作区：返回/复制/反馈三按钮，已反馈查看模式
+- 反馈页已有反馈加载
+- 备注持久化到 notes 表
+- 知识条目摘要优先适用场景而非正文
+- 百宝箱分页 RAND() 导致 key 冲突
+- renderMarkdown key 前缀防冲突
+
+---
+
+## [0.2.0] — 2026-06-16
+
+### 新增
+
+**AI 分析闭环**
+- 分析创建 API（AI + 知识匹配 + 风险评估）
+- 11 模块结构化输出：一句话摘要、关键词、截图概括、人设类型、焦虑类型、包装拆解、比较陷阱、为什么焦虑、CBT 方法、建议、来源
+- 13 模块结果展示页 + 高风险全屏弹层 + 版权声明
+- 备注编辑（内嵌）、一键复制、反馈跳转
+- 重新分析（覆盖/新建两种模式）
+- 风险状态处理（继续查看/返回首页）
+
+**分析等待页**
+- 轮询状态消息、超时处理、取消、重试
+
+**反馈页**
+- 情绪变化 + 有用度评分 + 焦虑值滑块 + 补充文字
+- 已提交 → 只读查看模式
+- `GET/POST /api/analysis/[recordId]/feedback`
+
+**历史记录**
+- 列表 + 搜索 + 分页 + 加载更多
+- 卡片展示：摘要、关键词、平台、焦虑值、时间、反馈状态
+- 备注 PATCH API
+- 底部导航加入 /history
+- `/history/[recordId]` → 重定向到分析详情
+
+**百宝箱初始化**
+- 分类 Tab 浏览 + 搜索 + 展开详情
+- 详情页 + 相关推荐
+- 分类 1「焦虑类型解释」导入 30 条（1知识库.xlsx）
+
+**反馈页**
+- 反馈提交页 + 完成状态
+- 反馈详情页
+
+---
+
 ## [0.1.0] — 2026-06-15
 
-### 新增 — Phase 1：项目初始化完成
+### 新增 — Phase 1-6：项目初始化 + 账号 + 上传
 
 **项目脚手架**
-- 创建 Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4 项目
-- 配置 `@/*` 路径别名 → `./src/*`
+- Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4
+- 完整目录结构
 
-**目录结构**
-- 按 ARCHITECTURE.md 创建完整目录树：
-  - `src/app/` — (public)/(auth)/(main)/(admin) 路由分组
-  - `src/components/` — common/layout/form/upload/result/admin/feedback
-  - `src/features/` — 13 个功能模块目录
-  - `src/server/` — services/repositories/validators/policies/jobs/adapters
-  - `src/lib/` — db/auth/ai/ocr/storage/mail/sms/logger/errors
-  - `src/types/` — 8 个类型定义文件
-  - `src/config/` — 5 个配置文件
-  - `src/middleware/` — 预留中间件目录
-  - `scripts/` — seed-admin/seed-knowledge/backup
-  - `uploads/` — tmp/users/avatars/analysis
+**账号系统**
+- 注册/登录/密码重置（手机+邮箱，JWT Cookie）
+- 个人中心（头像、用户名、密码、凭证绑定、注销）
+- 验证码（Beta 模式跳过真实发送）
+- 新手引导 + 教程
 
-**核心依赖**
-- `mysql2` — MariaDB/MySQL 连接
-- `bcryptjs` — 密码哈希
-- `jose` — JWT 签发与验证
-- `zod` — 运行时校验（待接入）
+**上传系统**
+- 拖拽上传 + 图片预览 + 格式校验
+- 感受输入、焦虑滑块、平台选择、参考历史开关
 
-**配置文件（5 个）**
-- `src/config/app.config.ts` — 全局应用配置
-- `src/config/auth.config.ts` — 认证相关配置
-- `src/config/upload.config.ts` — 上传限制配置
-- `src/config/ai.config.ts` — DeepSeek AI 配置
-- `src/config/admin.config.ts` — 管理员配置 + 免责声明核心条款
+**首页**
+- 问候语、随机名言、好歌推荐、教程浮层
 
-**核心库文件（8 个）**
-- `src/lib/db/index.ts` — 数据库连接池 + query/transaction 工具
-- `src/lib/auth/index.ts` — JWT 签发验证 + 密码哈希比对 + 用户名/密码规则校验
-- `src/lib/ai/index.ts` — DeepSeek AI Adapter + 多模态支持 + Prompt 构建
-- `src/lib/ocr/index.ts` — 基于 DeepSeek 多模态的文字识别
-- `src/lib/storage/index.ts` — 本地文件存储适配器（预留对象存储接口）
-- `src/lib/mail/index.ts` — Resend 邮件适配器（内测阶段跳过）
-- `src/lib/sms/index.ts` — 阿里云短信适配器（内测阶段跳过）
-- `src/lib/logger/index.ts` — 结构化日志
-
-**错误处理**
-- `src/lib/errors/index.ts` — AppError 基类 + 10 个子类错误
-- `src/lib/api-response.ts` — 统一 API 响应格式辅助
-
-**类型定义（8 文件）**
-- auth.ts / user.ts / analysis.ts / knowledge.ts / history.ts / note.ts / feedback.ts / admin.ts
-
-**数据库**
-- `scripts/schema.sql` — 完整建表脚本（24 张表 + 索引 + 外键）
-- `scripts/seed.ts` — 种子数据脚本
-  - 8 个知识分类
-  - 61 条知识条目（含标签、适用场景、来源说明）
-  - 12 条首页名言
-  - 5 首好歌推荐
-  - 5 条系统文案（免责声明/产品说明/新手教程/问候语/Coming Soon）
-
-**中间件**
-- `src/middleware.ts` — 统一鉴权中间件
-  - 公开路径白名单
-  - JWT Token 验证
-  - 管理员路由守卫
-  - 用户信息注入请求头
-
-**通用 UI 组件（9 个）**
-- `Loading` + `Skeleton` + `PageSkeleton` — 加载状态
-- `ErrorState` — 错误状态（支持重试/返回首页）
-- `EmptyState` — 空状态（支持操作按钮）
-- `ConfirmModal` — 通用确认弹层（支持危险模式）
-- `Toast` + `ToastProvider` + `useToast` — 轻提示系统
-- `BottomNav` — 底部导航栏（含中间突出相机按钮）
-- `MobileLayout` — 移动端容器布局
-
-**全局样式**
-- `src/app/globals.css` — 琥珀色调柔和配色 + 自定义 CSS 类（card/btn/input/tag 等）
-- `src/app/layout.tsx` — 根布局（ToastProvider + viewport 配置）
-- `src/app/page.tsx` — 入口页
-
-### 修改
-- 文档迁移至 `docs/` 目录
-
-### 项目状态
-- 当前阶段：Phase 1 ✅ 完成
-- 下一阶段：Phase 2（账号与合规系统）
-- 编译状态：✅ `next build` 通过
-- 代码文件：40+ 文件
-- 任务完成：Phase 1 全部 26 个任务
+**基础设施**
+- mysql2 数据库连接池 + query/execute/transaction
+- AI Adapter（GLM-5V-Turbo 多模态）
+- 本地文件存储
+- JWT 认证中间件（proxy.ts）
+- AppError 错误体系 + 统一 API 响应
+- 通用组件：Loading/Skeleton/ErrorState/EmptyState/ConfirmModal/Toast
+- 布局：MobileLayout + BottomNav
 
 ---
 
 ## [0.0.0] — 2026-06-15
+
+项目文档与设计阶段。
 
 ---
 
@@ -111,28 +129,3 @@
 | 主版本 | 大功能上线、架构变更、对外发布 |
 | 次版本 | Phase 完成、模块上线、功能新增 |
 | 修订号 | Bug 修复、文案调整、样式微调、文档更新 |
-
-当前版本 **0.0.0** 表示项目处于文档与准备阶段，尚未进入编码。
-
----
-
-## 变更模板（复制使用）
-
-```markdown
-## [X.Y.Z] — YYYY-MM-DD
-
-### 新增
-- 
-
-### 修改
-- 
-
-### 修复
-- 
-
-### 删除
-- 
-
-### 备注
-- 
-```
