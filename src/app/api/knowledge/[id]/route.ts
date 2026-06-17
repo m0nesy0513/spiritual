@@ -39,7 +39,7 @@ export async function GET(
 
     // 同分类推荐（3 条）
     const related = await query<any>(
-      `SELECT ki.id, ki.title, ki.body
+      `SELECT ki.id, ki.title, ki.applicable_scene, ki.body
        FROM knowledge_items ki
        WHERE ki.category_id = ? AND ki.id != ? AND ki.is_enabled = TRUE AND ki.deleted_at IS NULL
        ORDER BY ki.is_home_recommended DESC, ki.id DESC
@@ -60,7 +60,7 @@ export async function GET(
       related: related.map((r: any) => ({
         id: String(r.id),
         title: r.title,
-        summary: (r.body as string).substring(0, 80).replace(/[#*]/g, '').trim() + '…',
+        summary: r.applicable_scene || (r.body as string).substring(0, 80).replace(/[#*]/g, '').trim() + '…',
       })),
     })
   } catch (err) {

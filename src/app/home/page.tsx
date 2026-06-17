@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { MobileLayout } from '@/components/layout'
 import { Skeleton } from '@/components/common'
 
@@ -8,10 +9,12 @@ interface HomeData {
   greeting: { text: string }
   quote: { text: string; author: string; placeholder: boolean }
   song: { title: string; artist: string; reason: string; suitableMood: string; placeholder: boolean }
+  knowledgeRecommendations: { id: string; title: string; categoryName: string; summary: string }[]
   userState: { isLoggedIn: boolean; hasHistory: boolean }
 }
 
 export default function HomePage() {
+  const router = useRouter()
   const [data, setData] = useState<HomeData | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -107,6 +110,31 @@ export default function HomePage() {
             </>
           )}
         </div>
+
+        {/* 今日知识推荐（随机 3 条） */}
+        {data?.knowledgeRecommendations && data.knowledgeRecommendations.length > 0 && (
+          <div className="animate-fade-in-up">
+            <p className="text-sm text-gray-400 mb-3">📚 今日知识推荐</p>
+            <div className="space-y-2">
+              {data.knowledgeRecommendations.map(item => (
+                <button
+                  key={item.id}
+                  onClick={() => router.push(`/knowledge/${item.id}`)}
+                  className="card w-full text-left hover:shadow-md transition-shadow"
+                >
+                  <p className="text-sm font-medium text-gray-700">{item.title}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{item.categoryName} · {item.summary}</p>
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => router.push('/knowledge')}
+              className="w-full text-center text-amber-600 text-sm py-2 mt-2"
+            >
+              查看全部 →
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 新手教程遮罩 */}

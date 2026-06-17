@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
       sourceNote: r.source_note || '',
       isHomeRecommended: !!r.is_home_recommended,
       tags: tagMap[r.id] || [],
-      summary: (r.body as string).substring(0, 150).replace(/[#*]/g, '').trim() + '…',
+      summary: r.applicable_scene || stripMarkdown(r.body, 150),
     }))
 
     return success({
@@ -105,4 +105,15 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return error(err)
   }
+}
+
+/** 从 markdown 正文中提取纯文本摘要 */
+function stripMarkdown(body: string, maxLen: number): string {
+  const text = body
+    .replace(/^## .+/gm, '')   // 去掉标题行
+    .replace(/\*\*/g, '')       // 去掉粗体标记
+    .replace(/\n+/g, ' ')       // 换行变空格
+    .replace(/\s+/g, ' ')       // 合并空白
+    .trim()
+  return text.slice(0, maxLen).trim() + '…'
 }

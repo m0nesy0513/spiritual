@@ -32,10 +32,21 @@ interface Pagination {
 }
 
 export default function KnowledgePage() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const scrollPosRef = useRef(0)
   const [categories, setCategories] = useState<Category[]>([])
   const [items, setItems] = useState<KnowledgeItem[]>([])
   const [pagination, setPagination] = useState<Pagination | null>(null)
   const [loading, setLoading] = useState(true)
+  const [canScroll, setCanScroll] = useState({ left: false, right: true })
+
+  function checkScroll(el: HTMLElement) {
+    setCanScroll({ left: el.scrollLeft > 2, right: el.scrollLeft < el.scrollWidth - el.clientWidth - 2 })
+  }
+
+  function scrollBy(delta: number) {
+    scrollRef.current?.scrollBy({ left: delta, behavior: 'smooth' })
+  }
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
@@ -48,6 +59,18 @@ export default function KnowledgePage() {
   useEffect(() => {
     fetchKnowledge(1, 0, '')
   }, [])
+
+  // 数据加载完成后恢复滚动位置 + 检查箭头
+  useEffect(() => {
+    if (!loading && items.length > 0) {
+      requestAnimationFrame(() => {
+        const el = scrollRef.current
+        if (!el) return
+        el.scrollLeft = scrollPosRef.current
+        checkScroll(el)
+      })
+    }
+  }, [loading, items])
 
   async function fetchKnowledge(page: number, categoryId: number, searchTerm: string) {
     const params = new URLSearchParams({ page: String(page), pageSize: '20' })
@@ -76,10 +99,12 @@ export default function KnowledgePage() {
   }
 
   function switchCategory(categoryId: number) {
+    scrollPosRef.current = scrollRef.current?.scrollLeft || 0
     setActiveCategory(categoryId)
     setExpandedId(null)
     setLoading(true)
     setItems([])
+    setCanScroll({ left: false, right: false })
     fetchKnowledge(1, categoryId, searchRef.current)
   }
 
@@ -158,32 +183,50 @@ export default function KnowledgePage() {
         </div>
 
         {/* 分类横向滚动 */}
-        <div className="flex gap-2 mb-5 overflow-x-auto hide-scrollbar -mx-6 px-6">
-          <button
-            onClick={() => switchCategory(0)}
-            className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition ${
-              activeCategory === 0
-                ? 'bg-amber-500 text-white'
-                : 'bg-white text-gray-500 border border-gray-200'
-            }`}
-          >
-            全部
-            {pagination && <span className="ml-1 opacity-70">{pagination.total}</span>}
-          </button>
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => switchCategory(cat.id)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition ${
-                activeCategory === cat.id
-                  ? 'bg-amber-500 text-white'
-                  : 'bg-white text-gray-500 border border-gray-200'
-              }`}
-            >
-              {cat.name}
-              <span className="ml-1 opacity-70">{cat.itemCount}</span>
+        <div className="flex items-center gap-1 mb-5">
+          {canScroll.left && (
+            <button onClick={() => scrollBy(-200)} className="shrink-0 w-7 h-7 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-400 hover:text-amber-600 text-xs">
+              ◀
             </button>
-          ))}
+          )}
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-x-auto hide-scrollbar"
+            onScroll={e => checkScroll(e.currentTarget)}
+          >
+            <div className="flex gap-2 w-max">
+              <button
+                onClick={() => switchCategory(0)}
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
+                  activeCategory === 0
+                    ? 'bg-amber-500 text-white'
+                    : 'bg-white text-gray-500 border border-gray-200'
+                }`}
+              >
+                全部
+                {pagination && <span className="ml-1 opacity-70">{pagination.total}</span>}
+              </button>
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => switchCategory(cat.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
+                    activeCategory === cat.id
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-white text-gray-500 border border-gray-200'
+                  }`}
+                >
+                  {cat.name}
+                  <span className="ml-1 opacity-70">{cat.itemCount}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          {canScroll.right && (
+            <button onClick={() => scrollBy(200)} className="shrink-0 w-7 h-7 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-400 hover:text-amber-600 text-xs">
+              ▶
+            </button>
+          )}
         </div>
 
         {/* 空状态 */}
@@ -206,15 +249,9 @@ export default function KnowledgePage() {
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      {item.isHomeRecommended && (
-                        <span className="shrink-0 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">🏠 推荐</span>
-                      )}
-                      <h3 className="text-sm font-semibold text-gray-800 leading-snug">
-                        {item.title}
-                      </h3>
-                    </div>
+                    <h3 className="text-sm font-semibold text-gray-800 leading-snug">{item.title}</h3>
                     <p className="text-xs text-gray-400 mt-1">{item.summary}</p>
+                    <span className="inline-block mt-1.5 px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full">{item.categoryName}</span>
                   </div>
                   <span className="text-gray-300 text-xs mt-1 shrink-0">
                     {expandedId === item.id ? '▲' : '▼'}
@@ -294,41 +331,37 @@ function renderMarkdown(text: string) {
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
-    const key = i
 
     if (!line.trim()) {
-      elements.push(<div key={key} className="h-2" />)
+      elements.push(<div key={`ml${i}`} className="h-2" />)
       i++
       continue
     }
 
-    // ## 标题
     const h2Match = line.match(/^## (.+)/)
     if (h2Match) {
       elements.push(
-        <h4 key={key} className="text-base font-semibold text-gray-700 mt-3 mb-1">
-          {renderBold(h2Match[1])}
+        <h4 key={`ml${i}`} className="text-base font-semibold text-gray-700 mt-3 mb-1">
+          {renderBold(`ml${i}`, h2Match[1])}
         </h4>
       )
       i++
       continue
     }
 
-    // - 列表项
     if (line.trim().startsWith('- ')) {
       elements.push(
-        <div key={key} className="flex gap-2 text-sm">
+        <div key={`ml${i}`} className="flex gap-2 text-sm">
           <span className="text-amber-400 shrink-0 mt-0.5">•</span>
-          <span className="text-gray-600">{renderBold(line.replace(/^-\s*/, ''))}</span>
+          <span className="text-gray-600">{renderBold(`ml${i}`, line.replace(/^-\s*/, ''))}</span>
         </div>
       )
       i++
       continue
     }
 
-    // 普通段落
     elements.push(
-      <p key={key} className="text-sm text-gray-600">{renderBold(line)}</p>
+      <p key={`ml${i}`} className="text-sm text-gray-600">{renderBold(`ml${i}`, line)}</p>
     )
     i++
   }
@@ -336,12 +369,11 @@ function renderMarkdown(text: string) {
   return elements
 }
 
-/** 将 **text** 渲染为 <strong> */
-function renderBold(text: string): React.ReactNode {
+function renderBold(prefix: string, text: string): React.ReactNode {
   const parts = text.split(/(\*\*.+?\*\*)/g)
-  return parts.map((part, i) => {
+  return parts.map((part, j) => {
     const m = part.match(/^\*\*(.+?)\*\*$/)
-    if (m) return <strong key={i} className="font-semibold text-gray-700">{m[1]}</strong>
+    if (m) return <strong key={`${prefix}b${j}`} className="font-semibold text-gray-700">{m[1]}</strong>
     return part
   })
 }

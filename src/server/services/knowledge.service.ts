@@ -91,7 +91,7 @@ export const KnowledgeService = {
         categoryName: item.category_name,
         body: item.body,
         tags: tagRows.map((t: any) => t.tag_name),
-        summary: item.body.substring(0, 100) + '…',
+        summary: item.applicable_scene || item.body.substring(0, 100) + '…',
         applicableScene: item.applicable_scene,
       })
     }
@@ -127,7 +127,7 @@ export const KnowledgeService = {
     const excludeIds = matched.map(m => m.id)
 
     const rows = await query<any>(
-      `SELECT ki.id, ki.title, kc.name as category_name, ki.body
+      `SELECT ki.id, ki.title, kc.name as category_name, ki.applicable_scene, ki.body
        FROM knowledge_items ki
        JOIN knowledge_categories kc ON kc.id = ki.category_id
        WHERE ki.is_enabled = TRUE AND ki.deleted_at IS NULL
@@ -142,7 +142,7 @@ export const KnowledgeService = {
       id: String(r.id),
       title: r.title,
       categoryName: r.category_name,
-      summary: (r.body as string).substring(0, 100) + '…',
+      summary: r.applicable_scene || (r.body as string).substring(0, 100) + '…',
     }))
   },
 

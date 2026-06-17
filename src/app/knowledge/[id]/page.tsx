@@ -47,12 +47,7 @@ export default function KnowledgeDetailPage() {
 
         {/* 标题 */}
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            {data.isHomeRecommended && (
-              <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">🏠 推荐</span>
-            )}
-            <span className="text-xs text-gray-400">{data.categoryName}</span>
-          </div>
+          <span className="text-xs text-gray-400">{data.categoryName}</span>
           <h1 className="text-xl font-bold text-gray-800">{data.title}</h1>
         </div>
 
@@ -120,10 +115,9 @@ function renderMarkdown(text: string) {
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
-    const key = i
 
     if (!line.trim()) {
-      elements.push(<div key={key} className="h-2" />)
+      elements.push(<div key={`md${i}`} className="h-2" />)
       i++
       continue
     }
@@ -131,8 +125,8 @@ function renderMarkdown(text: string) {
     const h2Match = line.match(/^## (.+)/)
     if (h2Match) {
       elements.push(
-        <h4 key={key} className="text-base font-semibold text-gray-700 mt-3 mb-1">
-          {renderBold(h2Match[1])}
+        <h4 key={`md${i}`} className="text-base font-semibold text-gray-700 mt-3 mb-1">
+          {renderBold(`md${i}`, h2Match[1])}
         </h4>
       )
       i++
@@ -141,9 +135,9 @@ function renderMarkdown(text: string) {
 
     if (line.trim().startsWith('- ')) {
       elements.push(
-        <div key={key} className="flex gap-2 text-sm">
+        <div key={`md${i}`} className="flex gap-2 text-sm">
           <span className="text-amber-400 shrink-0 mt-0.5">•</span>
-          <span className="text-gray-600">{renderBold(line.replace(/^-\s*/, ''))}</span>
+          <span className="text-gray-600">{renderBold(`md${i}`, line.replace(/^-\s*/, ''))}</span>
         </div>
       )
       i++
@@ -151,7 +145,7 @@ function renderMarkdown(text: string) {
     }
 
     elements.push(
-      <p key={key} className="text-sm text-gray-600">{renderBold(line)}</p>
+      <p key={`md${i}`} className="text-sm text-gray-600">{renderBold(`md${i}`, line)}</p>
     )
     i++
   }
@@ -159,11 +153,11 @@ function renderMarkdown(text: string) {
   return elements
 }
 
-function renderBold(text: string): React.ReactNode {
+function renderBold(prefix: string, text: string): React.ReactNode {
   const parts = text.split(/(\*\*.+?\*\*)/g)
-  return parts.map((part, i) => {
+  return parts.map((part, j) => {
     const m = part.match(/^\*\*(.+?)\*\*$/)
-    if (m) return <strong key={i} className="font-semibold text-gray-700">{m[1]}</strong>
+    if (m) return <strong key={`${prefix}b${j}`} className="font-semibold text-gray-700">{m[1]}</strong>
     return part
   })
 }

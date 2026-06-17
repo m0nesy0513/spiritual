@@ -14,7 +14,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   // 仅在需要展示底部导航的页面显示
-  const shouldShow = ['/home', '/features', '/upload', '/knowledge', '/profile', '/history'].some(
+  const shouldShow = ['/home', '/features', '/upload', '/knowledge', '/profile', '/history', '/notes'].some(
     (p) => pathname === p || pathname.startsWith(p + '/'),
   )
 
