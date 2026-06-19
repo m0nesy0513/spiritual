@@ -62,8 +62,23 @@ export default function AnalysisResultPage() {
         if (json.error?.code === 'FORBIDDEN') router.push('/home')
         return
       }
-      setData(json.data)
-      setNoteText(json.data.note?.noteText || '')
+      const d = json.data
+      // 清理 AI 返回的 markdown 格式符号
+      if (d.modules) {
+        const strip = (s: string) => (s || '').replace(/\*\*/g, '')
+        for (const key of ['oneSentenceSummary','screenshotSummary','packagingAnalysis','comparisonTrapAnalysis','whyYouFeelAnxious']) {
+          if (d.modules[key]) d.modules[key] = strip(d.modules[key])
+        }
+        if (d.modules.cbtAssistance) {
+          d.modules.cbtAssistance.methodName = strip(d.modules.cbtAssistance.methodName || '')
+          d.modules.cbtAssistance.content = strip(d.modules.cbtAssistance.content || '')
+        }
+        if (d.modules.suggestions) d.modules.suggestions = d.modules.suggestions.map(strip)
+      }
+      if (d.risk?.triggerReasonSummary) d.risk.triggerReasonSummary = (d.risk.triggerReasonSummary || '').replace(/\*\*/g, '')
+      if (d.modules?.disclaimer?.text) d.modules.disclaimer.text = d.modules.disclaimer.text.replace(/\*\*/g, '')
+      setData(d)
+      setNoteText(d.note?.noteText || '')
       if (json.data.risk.isHighRisk && json.data.risk.riskStatus === 'pending') {
         setShowRisk(true)
       }

@@ -95,40 +95,50 @@ export default function FeedbackPage() {
           <h1 className="text-xl font-bold text-gray-800 text-center">分析反馈</h1>
 
           <div className="card space-y-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between">
               <span className="text-sm text-gray-500">情绪变化</span>
-              <span className="tag text-base">
+              <span className="tag">
                 {f?.feelingAfterOption ? FEELING_LABELS[f.feelingAfterOption] : ''}
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="border-t border-gray-100" />
+
+            <div className="flex items-center justify-between">
               <span className="text-sm text-gray-500">有用程度</span>
-              <span className="tag text-base">
+              <span className="tag">
                 {f?.usefulnessOption ? USEFUL_LABELS[f.usefulnessOption] : ''}
               </span>
             </div>
 
             {(f?.anxietyScoreBefore != null || f?.anxietyScoreAfter != null) && (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-500">焦虑值变化</span>
-                <span className="text-sm text-gray-700">
-                  {f.anxietyScoreBefore != null ? `${f.anxietyScoreBefore} → ` : ''}
-                  {f.anxietyScoreAfter != null ? f.anxietyScoreAfter : ''}
-                </span>
-              </div>
+              <>
+                <div className="border-t border-gray-100" />
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500">焦虑值变化</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    {f.anxietyScoreBefore != null ? `${f.anxietyScoreBefore} → ` : ''}
+                    {f.anxietyScoreAfter != null ? f.anxietyScoreAfter : ''}
+                  </span>
+                </div>
+              </>
             )}
 
             {f?.followupText && (
-              <div>
-                <p className="text-sm text-gray-500 mb-1">后续感受</p>
-                <p className="text-sm text-gray-700 bg-gray-50 rounded-xl p-3">{f.followupText}</p>
-              </div>
+              <>
+                <div className="border-t border-gray-100" />
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">后续感受</p>
+                  <p className="text-sm text-gray-700 bg-gray-50 rounded-xl p-3 leading-relaxed">{f.followupText}</p>
+                </div>
+              </>
             )}
 
-            <p className="text-xs text-gray-400">
-              提交于 {f?.submittedAt ? new Date(f.submittedAt).toLocaleString('zh-CN') : ''}
-            </p>
+            <div className="border-t border-gray-100 pt-3">
+              <p className="text-xs text-gray-400">
+                提交时间：{f?.submittedAt ? new Date(f.submittedAt).toLocaleString('zh-CN') : ''}
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">

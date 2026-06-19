@@ -31,7 +31,7 @@ export async function GET(
         anxietyScoreAfter: f.anxiety_score_after,
         anxietyScoreBefore: f.anxiety_score_before,
         followupText: f.followup_text,
-        submittedAt: f.created_at,
+        submittedAt: f.submitted_at,
       },
     })
   } catch (err) {

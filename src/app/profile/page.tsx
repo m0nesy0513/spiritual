@@ -179,9 +179,11 @@ export default function ProfilePage() {
 
         {/* 功能入口 */}
         <div className="card space-y-0 divide-y divide-gray-50">
+          <MenuItem label="⚙️ 管理后台" onClick={() => router.push('/admin')} />
           <MenuItem label="📖 历史记录" onClick={() => router.push('/history')} />
           <MenuItem label="📝 个人笔记" onClick={() => router.push('/notes')} />
           <MenuItem label="📋 产品说明" onClick={() => router.push('/disclaimer')} />
+          <MenuItem label="💬 用户反馈" onClick={() => router.push('/suggestions')} />
           <MenuItem label="⚠️ 免责声明" onClick={() => router.push('/disclaimer')} />
           <MenuItem label="🎓 新手教程" onClick={async () => {
               await fetch('/api/user/preferences', {

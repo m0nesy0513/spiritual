@@ -21,7 +21,7 @@ export default function NotesPage() {
   const [search, setSearch] = useState('')
   const searchRef = useRef('')
   const composingRef = useRef(false)
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   useEffect(() => { fetchNotes(1, '') }, [])
 
@@ -70,14 +70,17 @@ export default function NotesPage() {
           <button onClick={() => router.back()} className="text-amber-600 text-sm shrink-0">← 返回</button>
         </div>
 
-        <div className="relative mb-4">
-          <input type="text" value={search}
-            onChange={e => onSearchInput(e.target.value)}
-            onCompositionStart={() => { composingRef.current = true }}
-            onCompositionEnd={e => { composingRef.current = false; const v = (e.target as HTMLInputElement).value; setSearch(v); searchRef.current = v; triggerSearch(v) }}
-            placeholder="搜索笔记…" className="input-base pl-10 pr-4 py-2.5 text-sm" />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">🔍</span>
-          {search && <button onClick={() => { setSearch(''); searchRef.current = ''; setLoading(true); fetchNotes(1, '') }} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">✕</button>}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex-1 flex items-center bg-gray-50 rounded-xl px-4 py-3 gap-3">
+            <span className="text-gray-300">🔍</span>
+            <input type="text" value={search}
+              onChange={e => onSearchInput(e.target.value)}
+              onCompositionStart={() => { composingRef.current = true }}
+              onCompositionEnd={e => { composingRef.current = false; const v = (e.target as HTMLInputElement).value; setSearch(v); searchRef.current = v; triggerSearch(v) }}
+              placeholder="搜索笔记…" className="flex-1 text-sm text-gray-700 bg-transparent outline-none placeholder:text-gray-300" />
+            {search && <button onClick={() => { setSearch(''); searchRef.current = ''; setLoading(true); fetchNotes(1, '') }}
+              className="w-5 h-5 flex items-center justify-center rounded-full bg-gray-300 text-white text-xs shrink-0">✕</button>}
+          </div>
         </div>
 
         {notes.length === 0 && (

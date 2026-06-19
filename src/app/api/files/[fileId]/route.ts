@@ -33,6 +33,15 @@ export async function GET(
       return new Response('', { status: 403 })
     }
 
+    // Vercel Blob URL → 302 重定向
+    if (file.storage_path.startsWith('http')) {
+      const redirectUrl = new URL(file.storage_path)
+      if (redirectUrl.hostname === 'public.blob.vercel-storage.com') {
+        return Response.redirect(file.storage_path, 302)
+      }
+    }
+
+    // 本地文件系统
     const buffer = readFile(file.storage_path)
     return new Response(new Uint8Array(buffer), {
       status: 200,

@@ -43,7 +43,7 @@ export default function KnowledgeDetailPage() {
     <div className="min-h-screen bg-amber-50">
       <div className="max-w-lg mx-auto px-6 pt-6 pb-24 space-y-5">
         {/* 返回 */}
-        <button onClick={() => router.back()} className="text-amber-600 text-sm">← 返回百宝箱</button>
+        <button onClick={() => router.back()} className="text-amber-600 text-sm">← 返回</button>
 
         {/* 标题 */}
         <div>

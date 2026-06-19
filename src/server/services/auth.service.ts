@@ -1,9 +1,14 @@
-import { transaction } from '@/lib/db'
+import { transaction, query } from '@/lib/db'
 import { hashPassword, comparePassword, signToken, validatePassword, validateUsername } from '@/lib/auth'
 import { UserRepo } from '@/server/repositories/user.repo'
 import { VerificationRepo } from '@/server/repositories/verification.repo'
 import { ValidationError, UnauthorizedError, RateLimitedError } from '@/lib/errors'
 import type { PoolConnection } from 'mysql2/promise'
+
+async function getIsAdmin(userId: number): Promise<boolean> {
+  const rows = await query<any>('SELECT 1 FROM admin_users WHERE user_id = ? LIMIT 1', [userId])
+  return rows.length > 0
+}
 
 // ============================================
 // 发送验证码
@@ -107,9 +112,10 @@ export async function register(params: {
   })
 
   // 自动登录 → 签发 Token
+  const isAdmin = await getIsAdmin(result)
   const token = await signToken({
     userId: String(result),
-    isAdmin: false,
+    isAdmin,
     username,
   })
 
@@ -118,7 +124,7 @@ export async function register(params: {
       id: String(result),
       username,
       avatarUrl: null,
-      isAdmin: false,
+      isAdmin,
       onboardingCompleted: false,
       tutorialCompleted: false,
     },
@@ -154,9 +160,10 @@ export async function login(params: {
 
   const prefs = await UserRepo.getPreferences(cred.user_id)
 
+  const isAdmin = await getIsAdmin(user.id)
   const token = await signToken({
     userId: String(user.id),
-    isAdmin: false,
+    isAdmin,
     username: user.username,
   })
 
@@ -165,7 +172,7 @@ export async function login(params: {
       id: String(user.id),
       username: user.username,
       avatarUrl: null,
-      isAdmin: false,
+      isAdmin,
       onboardingCompleted: prefs?.onboarding_completed ?? false,
       tutorialCompleted: prefs?.tutorial_completed ?? false,
     },
@@ -181,12 +188,13 @@ export async function getMe(userId: number) {
   const user = await UserRepo.findUserById(userId)
   if (!user) throw new UnauthorizedError('用户不存在')
   const prefs = await UserRepo.getPreferences(userId)
+  const isAdmin = await getIsAdmin(userId)
 
   return {
     id: String(user.id),
     username: user.username,
     avatarUrl: null,
-    isAdmin: false,
+    isAdmin,
     onboardingCompleted: prefs?.onboarding_completed ?? false,
     tutorialCompleted: prefs?.tutorial_completed ?? false,
     preferences: {

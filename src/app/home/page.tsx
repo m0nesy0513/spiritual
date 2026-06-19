@@ -73,15 +73,11 @@ export default function HomePage() {
           <p className="text-gray-400 text-sm mt-1">注意到你的感受，就已经是第一步了</p>
         </div>
 
-        {/* 搜索框（占位，Phase 14 实现） */}
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="搜索历史、百宝箱、笔记..."
-            className="input-base pl-10 pr-4 py-3 text-sm"
-            readOnly
-          />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 text-lg">🔍</span>
+        {/* 搜索框 — 简约风 */}
+        <div onClick={() => router.push('/search')}
+          className="cursor-pointer bg-white rounded-xl border border-gray-100 px-4 py-3 flex items-center gap-3 shadow-sm">
+          <span className="text-gray-300">🔍</span>
+          <span className="text-sm text-gray-400">搜索历史、百宝箱、笔记…</span>
         </div>
 
         {/* 名言卡片 */}

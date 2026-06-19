@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
        FROM knowledge_items ki
        JOIN knowledge_categories kc ON kc.id = ki.category_id
        ${whereClause}
-       ORDER BY ki.is_home_recommended DESC, ki.id DESC
+       ORDER BY ki.is_home_recommended DESC, RAND(FLOOR(UNIX_TIMESTAMP() / 3600))
        LIMIT ? OFFSET ?`,
       [...params, pageSize, offset],
     )
