@@ -1,5 +1,5 @@
--- 精神避难所 — 数据库导入
--- 生成时间：2026-06-19T15:41:10.502Z
+-- 精神避难所 — 数据库完整导入
+-- 2026-06-20T05:58:08.329Z
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -38,6 +38,414 @@ CREATE TABLE `admin_users` (
 
 INSERT INTO `admin_users` (`id`, `user_id`, `role`, `created_at`, `updated_at`) VALUES (1, 1, 'super_admin', '2026-06-19 13:26:36', '2026-06-19 13:26:36');
 
+DROP TABLE IF EXISTS `analysis_anxiety_tags`;
+CREATE TABLE `analysis_anxiety_tags` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `tag_name` varchar(50) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL DEFAULT 0,
+  `sort_order` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_record` (`record_id`),
+  CONSTRAINT `fk_at_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (1, 1, '同辈比较焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (2, 1, '学业表现焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (3, 1, '相对剥夺感', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (4, 2, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (5, 2, '相对剥夺感', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (6, 2, '冒名顶替综合症倾向', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (7, 3, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (8, 3, '同辈压力', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (9, 4, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (10, 4, '同辈比较焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (11, 4, '能力不足感', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (12, 5, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (13, 5, '同辈比较焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (14, 6, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (15, 6, '相对剥夺感', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (16, 6, '冒名顶替综合症倾向', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (17, 7, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (18, 7, '同辈比较焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (19, 7, '冒名顶替综合征倾向', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (20, 8, '同辈比较焦虑 (Peer Comparison Anxiety)', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (21, 8, '学业表现焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (22, 9, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (23, 9, '相对剥夺感', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (24, 9, '冒名顶替综合症倾向', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (25, 10, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (26, 10, '相对剥夺感', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (27, 11, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (28, 11, '相对剥夺感', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (29, 12, '同辈压力', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (30, 12, '能力否定', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (31, 12, '信息不确定性', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (32, 13, '学业表现焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (33, 13, '同辈压力 (Peer Pressure)', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (34, 13, '错失恐惧 (FOMO)', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (35, 14, '安全焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (36, 14, '信息过载焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (37, 14, '决策瘫痪', 0, 2);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (38, 15, '安全焦虑', 1, 0);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (39, 15, '决策焦虑', 0, 1);
+INSERT INTO `analysis_anxiety_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (40, 15, '替代性创伤', 0, 2);
+
+DROP TABLE IF EXISTS `analysis_disclaimer_snapshots`;
+CREATE TABLE `analysis_disclaimer_snapshots` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `disclaimer_text` text NOT NULL,
+  `snapshot_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_id` (`record_id`),
+  CONSTRAINT `fk_ds_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (1, 1, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 08:27:10');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (2, 2, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 08:51:17');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (3, 3, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 08:56:26');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (4, 4, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 09:01:07');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (5, 5, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 09:02:12');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (6, 6, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 11:05:02');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (7, 7, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 11:05:30');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (8, 8, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:02:42');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (9, 9, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:03:14');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (10, 10, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:06:39');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (11, 11, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:06:59');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (12, 12, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:16:28');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (13, 13, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-16 13:16:47');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (14, 14, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-19 13:16:32');
+INSERT INTO `analysis_disclaimer_snapshots` (`id`, `record_id`, `disclaimer_text`, `snapshot_at`) VALUES (15, 15, '# 免责声明\\n\\n**重要提示：本产品不能替代专业医疗、心理咨询、心理治疗或医学诊断。**\\n\\n精神避难所是一个社交媒体焦虑分析工具，旨在帮助用户认识和理解社交媒体引发的焦虑情绪，提供心理学知识和方法参考。\\n\\n**核心声明：**\\n1. 本产品不替代专业医疗\\n2. 本产品不替代心理咨询\\n3. 本产品不替代心理治疗\\n4. 本产品不提供医学诊断\\n5. 严重风险时请寻求专业帮助\\n\\n如果您正在经历强烈的痛苦或危险想法，请立即联系医院、专业医生、心理咨询师或当地紧急求助渠道。', '2026-06-19 13:16:43');
+
+DROP TABLE IF EXISTS `analysis_feedbacks`;
+CREATE TABLE `analysis_feedbacks` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `feeling_after_option` enum('much_better','better','no_change','worse') DEFAULT NULL,
+  `usefulness_option` enum('very_useful','useful','average','not_useful') DEFAULT NULL,
+  `anxiety_score_after` tinyint(3) unsigned DEFAULT NULL,
+  `followup_text` text DEFAULT NULL COMMENT '后续感受，最多 500 字',
+  `submitted_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_id` (`record_id`),
+  KEY `idx_user` (`user_id`),
+  CONSTRAINT `fk_fb_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_fb_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_feedbacks` (`id`, `record_id`, `user_id`, `feeling_after_option`, `usefulness_option`, `anxiety_score_after`, `followup_text`, `submitted_at`) VALUES (1, 13, 1, 'better', 'useful', 3, NULL, '2026-06-16 13:23:28');
+INSERT INTO `analysis_feedbacks` (`id`, `record_id`, `user_id`, `feeling_after_option`, `usefulness_option`, `anxiety_score_after`, `followup_text`, `submitted_at`) VALUES (2, 15, 1, 'better', 'useful', 3, NULL, '2026-06-19 13:18:00');
+
+DROP TABLE IF EXISTS `analysis_history_summaries`;
+CREATE TABLE `analysis_history_summaries` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `one_sentence_summary` varchar(30) DEFAULT NULL,
+  `persona_types` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '所有人设类型' CHECK (json_valid(`persona_types`)),
+  `anxiety_types` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '所有焦虑类型' CHECK (json_valid(`anxiety_types`)),
+  `keywords` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '关键词数组' CHECK (json_valid(`keywords`)),
+  `feedback_summary` varchar(100) DEFAULT NULL COMMENT '反馈概况，如"好很多，很有用"',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_id` (`record_id`),
+  KEY `idx_user` (`user_id`),
+  CONSTRAINT `fk_hs_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_hs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (1, 1, 1, '因与他人GPA比较而产生的学业同辈压力与焦虑。', '["焦虑的求学者","信息寻求者"]', '["同辈比较焦虑","学业表现焦虑","相对剥夺感"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑","比较"]', '', '2026-06-16 08:27:10');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (2, 2, 1, '因感知到同辈优秀而产生的学业比较焦虑。', '["寻求认同的焦虑求学者","焦虑求学者","同辈比较者"]', '["学业表现焦虑","相对剥夺感","冒名顶替综合症倾向"]', '["学业焦虑","同辈压力","GPA比较","自我怀疑","幸存者偏差"]', '', '2026-06-16 08:51:17');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (3, 3, 1, '因他人优秀而产生学业焦虑与自我怀疑。', '["陷入比较的求学者"]', '["学业表现焦虑","同辈压力"]', '["澳门大学","FBA","GPA","比较","焦虑"]', '', '2026-06-16 08:56:26');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (4, 4, 1, '因他人光环而陷入学业比较，产生自我怀疑的焦虑。', '["陷入同辈压力的在校生","信息寻求者","自我怀疑者"]', '["学业表现焦虑","同辈比较焦虑","能力不足感"]', '["澳门大学","FBA","GPA","同辈压力","自我怀疑"]', '', '2026-06-16 09:01:07');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (5, 5, 1, '学业比较引发的自我怀疑与群体焦虑。', '["寻求认同的焦虑者","信息搜集者"]', '["学业表现焦虑","同辈比较焦虑"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑"]', '', '2026-06-16 09:02:12');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (6, 6, 1, '学业比较引发的自我怀疑与群体焦虑。', '["陷入同辈压力的在校生","寻求认同感的迷茫者"]', '["学业表现焦虑","相对剥夺感","冒名顶替综合症倾向"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑"]', '', '2026-06-16 11:05:02');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (7, 7, 1, '因他人优秀而陷入学业比较，产生自我怀疑与焦虑。', '["焦虑求证者","同辈压力承受者"]', '["学业表现焦虑","同辈比较焦虑","冒名顶替综合征倾向"]', '["澳门大学","FBA","GPA","同辈压力","自我怀疑"]', '', '2026-06-16 11:05:30');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (8, 8, 1, '学业比较引发的群体性焦虑，担心自己落后于同辈。', '["寻求认同的焦虑者","信息收集者"]', '["同辈比较焦虑 (Peer Comparison Anxiety)","学业表现焦虑"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑"]', '', '2026-06-16 13:02:42');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (9, 9, 1, '学业比较引发的群体性焦虑与自我怀疑。', '["陷入同辈比较的在校生","信息寻求者","自我怀疑者"]', '["学业表现焦虑","相对剥夺感","冒名顶替综合症倾向"]', '["澳门大学","FBA","GPA","学业比较","同辈压力"]', '', '2026-06-16 13:03:14');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (10, 10, 1, '学业比较引发的群体性焦虑与自我怀疑。', '["学业焦虑者","寻求认同者"]', '["学业表现焦虑","相对剥夺感"]', '["澳门大学","FBA","GPA","学业焦虑","同辈压力"]', '', '2026-06-16 13:06:39');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (11, 11, 1, '因他人学业表现而产生自我怀疑与比较焦虑。', '["陷入同辈压力的求学者","寻求群体认同者"]', '["学业表现焦虑","相对剥夺感"]', '["学业比较","GPA焦虑","同辈压力","自我怀疑"]', '', '2026-06-16 13:06:59');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (12, 12, 1, '因他人优秀而自我怀疑，陷入学业比较的焦虑中。', '["学业受挫者","寻求认同者"]', '["同辈压力","能力否定","信息不确定性"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑"]', '', '2026-06-16 13:16:28');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (13, 13, 1, '学业比较引发的焦虑，担心自己落后于群体。', '["焦虑的求学者","寻求认同者"]', '["学业表现焦虑","同辈压力 (Peer Pressure)","错失恐惧 (FOMO)"]', '["澳门大学","FBA","GPA","同辈压力","学业焦虑"]', '好一点，有点用', '2026-06-16 13:16:47');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (14, 14, 1, '因负面新闻引发对旅行安全的过度担忧与决策焦虑。', '["寻求共鸣的犹豫者"]', '["安全焦虑","信息过载焦虑","决策瘫痪"]', '["横琴口岸","安全焦虑","幸存者偏差","灾难化思维"]', '', '2026-06-19 13:16:32');
+INSERT INTO `analysis_history_summaries` (`id`, `record_id`, `user_id`, `one_sentence_summary`, `persona_types`, `anxiety_types`, `keywords`, `feedback_summary`, `created_at`) VALUES (15, 15, 1, '因负面新闻产生对目的地的安全焦虑，引发旅行决策动摇。', '["寻求共鸣的普通游客","信息求证者","焦虑分享者"]', '["安全焦虑","决策焦虑","替代性创伤"]', '["横琴口岸","安全事故","旅游焦虑","决策犹豫","幸存者偏差"]', '好一点，有点用', '2026-06-19 13:16:43');
+
+DROP TABLE IF EXISTS `analysis_keywords`;
+CREATE TABLE `analysis_keywords` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `keyword` varchar(50) NOT NULL,
+  `sort_order` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_record` (`record_id`),
+  CONSTRAINT `fk_kw_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (1, 1, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (2, 1, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (3, 1, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (4, 1, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (5, 1, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (6, 1, '比较', 5);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (7, 2, '学业焦虑', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (8, 2, '同辈压力', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (9, 2, 'GPA比较', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (10, 2, '自我怀疑', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (11, 2, '幸存者偏差', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (12, 3, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (13, 3, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (14, 3, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (15, 3, '比较', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (16, 3, '焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (17, 4, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (18, 4, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (19, 4, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (20, 4, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (21, 4, '自我怀疑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (22, 5, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (23, 5, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (24, 5, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (25, 5, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (26, 5, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (27, 6, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (28, 6, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (29, 6, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (30, 6, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (31, 6, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (32, 7, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (33, 7, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (34, 7, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (35, 7, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (36, 7, '自我怀疑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (37, 8, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (38, 8, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (39, 8, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (40, 8, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (41, 8, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (42, 9, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (43, 9, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (44, 9, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (45, 9, '学业比较', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (46, 9, '同辈压力', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (47, 10, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (48, 10, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (49, 10, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (50, 10, '学业焦虑', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (51, 10, '同辈压力', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (52, 11, '学业比较', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (53, 11, 'GPA焦虑', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (54, 11, '同辈压力', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (55, 11, '自我怀疑', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (56, 12, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (57, 12, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (58, 12, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (59, 12, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (60, 12, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (61, 13, '澳门大学', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (62, 13, 'FBA', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (63, 13, 'GPA', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (64, 13, '同辈压力', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (65, 13, '学业焦虑', 4);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (66, 14, '横琴口岸', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (67, 14, '安全焦虑', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (68, 14, '幸存者偏差', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (69, 14, '灾难化思维', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (70, 15, '横琴口岸', 0);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (71, 15, '安全事故', 1);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (72, 15, '旅游焦虑', 2);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (73, 15, '决策犹豫', 3);
+INSERT INTO `analysis_keywords` (`id`, `record_id`, `keyword`, `sort_order`) VALUES (74, 15, '幸存者偏差', 4);
+
+DROP TABLE IF EXISTS `analysis_persona_tags`;
+CREATE TABLE `analysis_persona_tags` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `tag_name` varchar(50) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL DEFAULT 0,
+  `sort_order` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_record` (`record_id`),
+  CONSTRAINT `fk_pt_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (1, 1, '焦虑的求学者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (2, 1, '信息寻求者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (3, 2, '寻求认同的焦虑求学者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (4, 2, '焦虑求学者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (5, 2, '同辈比较者', 0, 2);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (6, 3, '陷入比较的求学者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (7, 4, '陷入同辈压力的在校生', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (8, 4, '信息寻求者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (9, 4, '自我怀疑者', 0, 2);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (10, 5, '寻求认同的焦虑者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (11, 5, '信息搜集者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (12, 6, '陷入同辈压力的在校生', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (13, 6, '寻求认同感的迷茫者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (14, 7, '焦虑求证者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (15, 7, '同辈压力承受者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (16, 8, '寻求认同的焦虑者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (17, 8, '信息收集者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (18, 9, '陷入同辈比较的在校生', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (19, 9, '信息寻求者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (20, 9, '自我怀疑者', 0, 2);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (21, 10, '学业焦虑者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (22, 10, '寻求认同者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (23, 11, '陷入同辈压力的求学者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (24, 11, '寻求群体认同者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (25, 12, '学业受挫者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (26, 12, '寻求认同者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (27, 13, '焦虑的求学者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (28, 13, '寻求认同者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (29, 14, '寻求共鸣的犹豫者', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (30, 15, '寻求共鸣的普通游客', 1, 0);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (31, 15, '信息求证者', 0, 1);
+INSERT INTO `analysis_persona_tags` (`id`, `record_id`, `tag_name`, `is_primary`, `sort_order`) VALUES (32, 15, '焦虑分享者', 0, 2);
+
+DROP TABLE IF EXISTS `analysis_records`;
+CREATE TABLE `analysis_records` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `record_public_id` varchar(32) NOT NULL COMMENT '对外 ID，URL 中使用',
+  `parent_record_id` bigint(20) unsigned DEFAULT NULL COMMENT '重新分析时的来源记录 ID',
+  `user_feeling_text` text DEFAULT NULL COMMENT '用户感受，最多 500 字',
+  `anxiety_score_before` tinyint(3) unsigned DEFAULT NULL COMMENT '分析前焦虑强度 0-10',
+  `anxiety_score_after` tinyint(3) unsigned DEFAULT NULL COMMENT '分析后焦虑强度 0-10',
+  `source_platform` enum('wechat_moments','xiaohongshu','weibo','douyin','bilibili','other') DEFAULT NULL,
+  `reference_history_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `manual_text` varchar(200) DEFAULT NULL COMMENT '手动补充关键文字',
+  `ocr_full_text` text DEFAULT NULL COMMENT '完整 OCR 识别文字（用户勾选保存后才有值）',
+  `screenshot_file_id` bigint(20) unsigned DEFAULT NULL COMMENT '用户勾选保存后的截图 -> file_assets',
+  `save_original_screenshot` tinyint(1) NOT NULL DEFAULT 0,
+  `save_full_recognized_text` tinyint(1) NOT NULL DEFAULT 0,
+  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_public_id` (`record_public_id`),
+  KEY `idx_user_time` (`user_id`,`created_at`),
+  KEY `idx_public_id` (`record_public_id`),
+  KEY `idx_parent` (`parent_record_id`),
+  KEY `fk_record_screenshot` (`screenshot_file_id`),
+  CONSTRAINT `fk_record_screenshot` FOREIGN KEY (`screenshot_file_id`) REFERENCES `file_assets` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_record_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (1, 1, '5d9989be349e214b55cdd569', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 08:27:10', '2026-06-16 08:27:10');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (2, 1, 'd6c277cfc060f2cce6e2895c', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 08:51:17', '2026-06-16 08:51:17');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (3, 1, '0858fce5e3b94e3edb19a990', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 08:56:26', '2026-06-16 08:56:26');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (4, 1, '9812f1f341110861912b6d39', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 09:01:07', '2026-06-16 09:01:07');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (5, 1, 'f92422668cea8b2353b67e19', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 09:02:12', '2026-06-16 09:02:12');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (6, 1, '884a66c9460da39bce9ce1e4', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 11:05:02', '2026-06-16 11:05:02');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (7, 1, 'c59a8595d283d7cb20358a95', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 11:05:30', '2026-06-16 11:05:30');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (8, 1, '0ce993422a6ef4d5bb4a7f4f', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:02:42', '2026-06-16 13:02:42');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (9, 1, '02be9576aea6e4c4cdf63bf1', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:03:14', '2026-06-16 13:03:14');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (10, 1, '43065ae0100a08ab8b5a3447', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:06:39', '2026-06-16 13:06:39');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (11, 1, 'ab98ca577a40564bfa8eabc9', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:06:59', '2026-06-16 13:06:59');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (12, 1, 'a7a25d68d69181b62d6934f0', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:16:28', '2026-06-16 13:16:28');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (13, 1, '224803f4d559af451650a580', NULL, NULL, 5, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-16 13:16:47', '2026-06-16 13:16:47');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (14, 1, '844ebb52ffc193de245d22ac', NULL, NULL, 8, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-19 13:16:32', '2026-06-19 13:16:32');
+INSERT INTO `analysis_records` (`id`, `user_id`, `record_public_id`, `parent_record_id`, `user_feeling_text`, `anxiety_score_before`, `anxiety_score_after`, `source_platform`, `reference_history_enabled`, `manual_text`, `ocr_full_text`, `screenshot_file_id`, `save_original_screenshot`, `save_full_recognized_text`, `status`, `created_at`, `updated_at`) VALUES (15, 1, '55855daf32a1575208d0fa90', NULL, NULL, 8, NULL, 'xiaohongshu', 0, NULL, NULL, NULL, 0, 0, 'completed', '2026-06-19 13:16:43', '2026-06-19 13:16:43');
+
+DROP TABLE IF EXISTS `analysis_results`;
+CREATE TABLE `analysis_results` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `one_sentence_summary` varchar(30) DEFAULT NULL,
+  `screenshot_summary` text DEFAULT NULL COMMENT '截图内容概括，最多 100 字',
+  `packaging_analysis` text DEFAULT NULL,
+  `comparison_trap_analysis` text DEFAULT NULL,
+  `why_you_feel_anxious` text DEFAULT NULL,
+  `cbt_method_name` varchar(100) DEFAULT NULL,
+  `cbt_content` text DEFAULT NULL,
+  `suggestions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '1-5 条具体建议' CHECK (json_valid(`suggestions`)),
+  `raw_ai_response_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '原始 AI 响应，开发排查用' CHECK (json_valid(`raw_ai_response_json`)),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_id` (`record_id`),
+  CONSTRAINT `fk_result_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (1, 1, '因与他人GPA比较而产生的学业同辈压力与焦虑。', '一张在小红书发布的帖子，询问澳门大学商学院（FBA）的同学是否普遍拥有很高的GPA。配图使用了表示哭泣和无助的表情包，反映出发布者因感知到周围同学成绩优异，而对自己学业表现产生的担忧和自我怀疑。', '这张截图将内心的焦虑和自我否定，巧妙地包装成了一个“寻求信息”的疑问句。用“是不是都...”这种绝对化的措辞，预设了一个令人生畏的“高标准群体”形象。哭泣的表情包（😭）则像一个情绪放大器，在看似客观的提问下，无声地呐喊着“我感到压力很大，我怕自己不够好”。这是一种典型的社交媒体表达策略：通过提问来宣泄情绪，同时避免直接暴露脆弱。', '这是一个经典的“幸存者偏差”与“向上社会比较”的双重陷阱。首先，你在社交媒体上看到的，往往是那些愿意并且有能力展示高GPA的“幸存者”，大量成绩平平或同样在挣扎的同学是沉默的，这导致你对整体水平的判断严重偏高。其次，“都”字构建了一个虚假的完美标杆，让你不自觉地用自己的短板（可能是真实的，也可能是想象中的低GPA）去对标一个群体的最高或平均水准，从而必然产生“我不行”、“我掉队了”的挫败感。', '这种焦虑源于几个层面：1. **自我价值的威胁**：在学生身份中，GPA常被内化为衡量个人能力和价值的核心指标，感觉不如人，就等同于感觉自己“不够好”。2. **归属感的危机**：担心自己是群体中的“异类”或“落后者”，这种潜在的孤立感是深刻的不安来源。3. **未来的不确定性**：GPA常与奖学金、升学、就业等切身利益挂钩，对现状的比较很容易演变为对未来的灾难化想象。', '认知重构 (Cognitive Restructuring)', '我们可以一起尝试拆解并重建你的想法：\\n1. **捕捉自动化思维**：你的第一反应可能是“别人都好厉害，只有我GPA这么差，我完了”。\\n2. **寻找反证**：真的“所有”同学GPA都高吗？你看到的是官方数据，还是部分人的分享？那些没发帖的同学呢？他们的GPA分布是怎样的？\\n3. **去灾难化**：即使GPA暂时不理想，这等于“完了”吗？它定义了你整个人生的哪些部分？它是否完全堵死了你所有的可能性？\\n4. **建立新想法**：尝试用更平衡的想法替代旧想法，例如：“我看到网上有人分享高GPA，这可能只是一部分情况。我的GPA代表了我目前的学业状态，它是一个可以改善的数据，而不是对我个人价值的最终审判。我可以专注于自己的节奏。”', '["进行一次“信息斋戒”：有意识地减少浏览此类易引发比较的帖子，或将这类关键词加入屏蔽列表，为自己创造一个清净的信息环境。","建立“个人成长坐标系”：准备一个小本子或备忘录，每天记录一件自己完成的小事或学到的新东西，专注于“今天的我”比“昨天的我”有什么进步，将注意力从横向比较拉回到纵向成长上。","回归现实的锚点：与身边一两位值得信任的朋友或学长学姐聊聊，你会发现真实世界里的大家都有着各自的烦恼和普通的GPA，网络上的“人均大神”往往是一种错觉。"]', NULL, '2026-06-16 08:27:10');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (2, 2, '因感知到同辈优秀而产生的学业比较焦虑。', '一张来自小红书的帖子截图，一位澳门大学商学院（FBA）的学生发问，用哭泣的表情包表达了对周围同学GPA都很高的担忧与不安。', '帖子使用了示弱和求助的语气（“是不是都...”+哭泣表情），这是一种典型的“软性包装”。它降低了攻击性，更容易获得回应和同情。隐藏的信息是发布者内心的强烈不安和对自我价值的怀疑，她/他正在寻求一个“我不是最差的”这样的确认，或是为自己的不佳表现找一个合理的群体性归因（“原来大家都这样”或“这个项目本身就很难”）。', '这个问题的本质是一个精心设计的“比较陷阱”。它将个体（“我”）与一个被泛化的、理想化的群体（“澳大FBA的所有同学”）进行对比。这种比较是不对等的，因为你拿自己已知的、包含所有挣扎的完整现实，去对抗一个由想象和片面信息构成的“别人家的孩子”集合体。无论得到的答案是肯定还是否定，都已将自己置于一个需要被评判的位置。', '焦虑来源于将自我价值单一地绑定在GPA这个量化指标上。当感知到周围环境（尤其是被认为优秀的群体）的平均水平似乎远超自己时，会产生强烈的“落后感”和“不配得感”，担心自己不属于这里，害怕被同龄人抛下。社交媒体加剧了这种感觉，因为它像一个扩音器，只放大了部分人的“高光时刻”或焦虑提问，却掩盖了大多数人的普通状态。', '认知重构 (Cognitive Restructuring)', '识别并挑战你的自动化思维。当你想到“他们GPA都好高”时，停下来问自己：1. **证据在哪里？** 我真的知道“所有”同学的成绩吗？还是我只看到了少数几个？2. **有没有其他解释？** 那些没在网上发言的人呢？他们的GPA如何？3. **最坏的结果是什么？** 即使我的GPA不是最高的，这意味着我是一个失败的人吗？它对我的未来有什么决定性的影响吗？通过这个过程，将“灾难化”的想法替换为更客观、更平衡的看法。', '["进行“现实检验”：试着和身边一两个信任的朋友聊聊，你会发现几乎每个人都在为成绩、未来感到焦虑，“全员大神”大概率是一种错觉。","建立多元评价体系：有意识地发掘并记录自己在学业以外的优点和价值，比如社团活动、人际关系、某个爱好或一次勇敢的尝试。让自我价值感的支柱变得更丰富、更稳固。"]', NULL, '2026-06-16 08:51:17');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (3, 3, '因他人优秀而产生学业焦虑与自我怀疑。', '用户在社交媒体上提问，询问澳门大学FBA（工商管理学院）的同学是否GPA都很高，并配以一个哭泣的表情包，流露出对自身成绩的担忧和与他人比较后的不安。', '信息被包装成一个简单的疑问句，但末尾的“大哭”表情是关键的情绪泄露点。它将一个客观的询问转化为主观的压力宣泄。通过指向一个具体的群体（澳大FBA同学），用户构建了一个模糊但强大的“假想敌”形象，这个形象集合了所有“优秀”的特质，成为焦虑的来源。', '这是一个典型的“幸存者偏差”陷阱。用户可能看到了部分高分同学的分享或讨论，便以偏概全地认为“大家都很高”。社交媒体天然倾向于展示光鲜的一面（高GPA、奖学金、Offer），而沉默的大多数（成绩普通或也在挣扎的同学）是不可见的。用户拿自己真实的、全部的体验，去和他人经过筛选的、片面的高光时刻进行比较，这注定是一场不公平且令人挫败的比赛。', '这种焦虑源于对“相对位置”的恐惧。在竞争激烈的环境中（如商学院），GPA常被视为衡量个人能力和未来前景的核心指标。当感觉自己的GPA可能低于群体平均水平时，会触发深层的“我不够好”、“我会被淘汰”的恐惧感。这个问题本身就在寻求确认：“我是不是那个落后的异类？”无论答案如何，提问的行为本身就已揭示了内心的不安。', '认知去中心化 (Cognitive Decentering)', '当你产生‘别人都比我强’的想法时，试着将自己从这个想法中抽离出来，像一个旁观者一样观察它。你可以对自己说：‘我注意到我有一个想法，觉得FBA的所有同学GPA都很高。’然后，寻找证据来检验这个想法：我真的认识FBA的每一位同学吗？我看到的样本具有代表性吗？有没有可能也有人和我一样在为GPA担忧，只是他们没有发声？通过将‘想法’视为‘想法’而非‘事实’，可以削弱其对情绪的掌控力。', '["进行一次“信息审计”：有意识地减少浏览那些容易引发你焦虑的、炫耀型内容的账号或话题。将注意力从“别人怎么样”收回到“我今天能做什么”上。","建立多元化的自我评价体系：GPA只是大学生活的一个维度。尝试记录下你在课堂参与、社团活动、项目合作、甚至帮助他人中获得的成就感和成长，这些同样是你的价值证明。"]', NULL, '2026-06-16 08:56:26');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (4, 4, '因他人光环而陷入学业比较，产生自我怀疑的焦虑。', '用户在社交媒体上提问，询问澳门大学FBA（工商管理学院）的同学是否普遍GPA很高。配图是一个流汗哭泣的表情包，暗示了提问背后的不安与压力。', '这并非一个简单的信息查询。\\'是不是都...\\'的句式预设了一个可能不存在的绝对标准（全员高GPA）。流泪表情包是情绪包装，它在说：\\'我很担心自己不够好，请告诉我我的担心是多余的，或者至少告诉我我不是唯一的一个。\\' 这是一种通过示弱来寻求群体认同和安全感的行为。', '陷阱在于将一个庞大的群体（整个学院的学生）扁平化为一个单一的、令人望而生畏的标签（\\'都gpa很高\\'）。这种概括性思维会让人忽略个体差异和努力过程，直接跳到结果比较。一旦接受了这个预设前提，就会立刻将自己置于一个被审视、被评判的弱势位置，仿佛所有人的目光都在盯着你的成绩单。', '你感到焦虑，是因为这个问题本身就源于一种恐惧——害怕在一个被认为\\'强者云集\\'的环境中，自己的平凡或挣扎会显得格外刺眼。你在寻找一个外部标准来衡量自己的位置，但这个标准是模糊且被夸大的。这种不确定性比一个确定的坏消息更折磨人，因为它给了\\'我不够好\\'的念头无限蔓延的空间。', '去灾难化思维 (Decatastrophizing) & 检验证据', '让我们停下来检验一下那个让你焦虑的想法：\\'澳大FBA的同学GPA都很高，所以我如果不高就很失败。\\'\\n1. **证据是什么？** 你亲眼见过所有同学的GPA吗？社交媒体上的分享是否存在幸存者偏差（只有考得好的才发）？\\n2. **最坏的结果是什么？** 即使周围人GPA都高，这是否意味着你的个人价值被完全否定？它会影响你毕业、影响你未来十年的生活吗？\\n3. **替代性想法：** 一个学院里一定有各种不同背景、目标和投入程度的人。GPA分布通常是正态曲线，\\'都\\'很高是一个统计学上极低概率的事件。你的感受是真实的，但引发感受的那个\\'事实\\'很可能是被焦虑放大了的假象。', '["将关注点从\\'别人怎么样\\'拉回到\\'我今天能做什么\\'。设定一个属于自己的、可执行的小目标，比如弄懂一个知识点，而不是盯着一个遥远的数字。","有意识地减少浏览此类引发比较的信息流。当你再次感到焦虑时，可以尝试深呼吸，并对自己说：‘这是一个片段，不是全貌；这是一个选择，不是命运。’"]', NULL, '2026-06-16 09:01:07');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (5, 5, '学业比较引发的自我怀疑与群体焦虑。', '用户在社交媒体上提问，询问澳门大学FBA（工商管理学院）的同学是否普遍GPA很高，并配有一个表示压力或担忧的哭泣表情包。', '通过一个看似客观的提问（“是不是都...”）来包装内心的主观不安。哭泣表情包（🥺）是一种情绪化的视觉符号，旨在降低提问的攻击性，同时博取同情和共鸣，暗示自己可能处于劣势地位。', '这是一个典型的“幸存者偏差”陷阱。用户很可能只看到了社交媒体上那些主动晒出高GPA的“成功案例”，而忽略了沉默的大多数。将局部的、经过筛选的信息误认为是整个群体的普遍真相，从而产生“大家都很强，只有我不行”的错误认知。', '这种焦虑源于将自我价值单一地绑定在GPA这个量化指标上。当周围环境（无论是真实的还是感知到的）竞争激烈时，会触发原始的“落后就会被淘汰”的恐惧感。社交媒体放大了这种比较，因为它展示的是别人精心修饰后的“高光时刻”，而你拿自己的“幕后日常”去对比，这本身就是一场不公平的比赛。', '认知去中心化 (Cognitive Decentering)', '试着将自己从当下的情绪中抽离出来，像一个旁观者一样看待这个想法。你可以问自己：\\'我有确凿的数据证明FBA所有同学的GPA都很高吗？\\' \\'我看到的帖子能代表整个学院几千名学生吗？\\' 当你意识到你的结论是基于不完整信息时，这个想法对你的控制力就会减弱。', '["进行一次“信息审计”：有意识地关注一些分享学习困难、挂科经历或普通成绩的帖子，打破“人均学霸”的滤镜。","重新定义“足够好”：为自己设定一个基于个人进步而非与他人比较的GPA目标，关注知识掌握本身而非数字。"]', NULL, '2026-06-16 09:02:12');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (6, 6, '学业比较引发的自我怀疑与群体焦虑。', '一张社交媒体截图，用户询问澳门大学商学院（FBA）的同学是否普遍拥有很高的GPA，并配有一个表示焦虑或哭泣的表情包。这反映了在特定学术圈层内，因感知到他人优秀而产生的比较心理和自我怀疑。', '这张截图的“包装”非常简单直接：一个疑问句+一个具象化的情绪表情（哭泣/焦虑）。它隐藏的信息是提问者可能正处于一个信息不对称的环境中，ta通过碎片化的观察（如听说、看到个别案例），构建了一个“周围人都很强”的整体印象。这个表情包是关键，它将一个客观的学术问题，主观化、情绪化了，表明这并非纯粹的知识查询，而是情绪宣泄和寻求安慰。', '这是一个典型的“幸存者偏差”与“向上社会比较”结合的陷阱。1. **幸存者偏差**：在社交媒体或校园论坛上，更愿意分享高GPA、拿奖学金、获名企offer的同学会形成“可见”的样本，而沉默的大多数（成绩普通或也在挣扎的人）则被隐形了。2. **向上社会比较**：提问者将自己（未知的具体情况）与一个被理想化、平均化的“FBA同学”群体进行比较。这个“群体”是一个被建构出来的假想敌，它集中了所有最优秀的特质，使得任何个体在与之对比时都容易感到不足。3. **单一评价体系内卷**：将GPA作为衡量个人价值或群体水平的几乎唯一标尺，一旦在这个标尺上感觉落后，就容易引发全面的自我否定。', '你会感到焦虑，是因为这个问题背后潜藏着几个令人不安的假设：\\n1. **能力归因错误**：将GPA高低直接等同于个人能力和未来竞争力，认为低GPA意味着自己“不够好”。\\n2. **群体归属威胁**：担心如果自己的GPA不符合“都很高”的印象，就会被视为异类，无法融入这个本应属于自己的优秀集体。\\n3. **对不确定性的恐惧**：在没有全面数据的情况下，大脑倾向于做出最悲观的预测（即“大家都比我强”），这种不确定性本身就是焦虑的温床。\\n4. **零和博弈心态**：潜意识里觉得优秀是稀缺资源，别人的高分似乎就凸显了自己的“失败”。', '认知去中心化 (Cognitive Decentering) 与 行为实验', '你的想法是：“澳大FBA的同学GPA肯定都很高，我可能是个例外。” 这是一个**“读心术”和“以偏概全”的认知扭曲**。\\n\\n**我们可以尝试一个“行为实验”来验证它：**\\n1. **定义想法**：明确写下让你焦虑的想法，并给它的相信程度打分（0-100%）。\\n2. **设计实验**：与其在脑海里反复猜测，不如收集一些现实世界的证据。你可以匿名在学校论坛、树洞，或者和一两个信任的朋友聊聊，话题不是“大家多少分”，而是“最近课业压力大吗？”、“有没有哪门课特别让人头秃？”。\\n3. **预测结果**：在实验前，预测你会听到什么。是所有人都轻松拿到4.0？还是你会发现很多人也在为期末考试焦头烂额，也在为GPA挣扎？\\n4. **执行与分析**：去听听真实的声音。你很可能会发现，“都很高”是一个巨大的幻觉。那个哭泣表情包背后的真实故事，可能和你身边大多数人的故事一样，充满了努力、挣扎和普通。通过这个过程，你能亲身体验到：你的负面想法并非事实，它只是你众多想法中的一个。', '["将关注点从“横向比较”（我和别人比）转移到“纵向成长”（我和昨天的我比）。设定基于自身进步的小目标，比如“理解了这个知识点”，而非“超过某某同学”。","主动进行“信息断舍离”。减少浏览那些容易引发焦虑的“晒分”、“晒offer”帖子，或者有意识地将它们识别为“经过筛选的精彩瞬间”，而非生活的全部真相。"]', NULL, '2026-06-16 11:05:02');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (7, 7, '因他人优秀而陷入学业比较，产生自我怀疑与焦虑。', '用户在小红书发帖询问澳门大学商学院（FBA）的同学是否普遍拥有很高的GPA。文字末尾的“大哭”表情包直观地表达了提问者内心的焦虑、不安和可能存在的自卑感。', '这张截图的“包装”非常朴素，没有使用任何滤镜或精心设计的排版。它更像是一个在深夜发出的、未经修饰的真实求助信号。其隐藏信息是：提问者很可能已经感受到了来自周围环境的压力（比如看到同学晒分、听到传闻），并开始将自己的GPA与一个想象中的“群体标准”进行对比。那个哭泣的表情是整个帖子的核心，它将一个客观的学术问题转化为了一个主观的情绪宣泄。', '这是一个典型的“幸存者偏差”与“锚定效应”结合的比较陷阱。陷阱在于，“是不是都”这个问题本身就预设了一个不真实的全称判断。社交媒体上更容易被看到和讨论的，往往是那些高GPA的“成功案例”，这会让人错误地以为高GPA是常态。提问者将自己置于一个假设的、由“别人家的孩子”组成的参照系中，一旦自己的实际情况与此有差距，就会立刻陷入“我不够好”的自我否定中。', '你会感到焦虑，是因为这个帖子触及了我们对“能力”和“价值”的核心恐惧。在高度竞争的学术环境里，GPA被异化成了一种衡量个人价值的单一标尺。当你问出“是不是都...很高”时，你真正害怕的可能不是数字本身，而是害怕自己是那个“掉队的人”，害怕自己不如周围的人聪明或努力，从而质疑自己获得现有成就的合法性。这种焦虑源于我们将内在的自我价值，过度绑定在了外部的、可量化的比较指标上。', '去灾难化思维 (Decatastrophizing) 与 行为实验', '让我们一起来拆解这个想法：\\n1. **捕捉自动思维**：你的想法可能是“如果别人的GPA都比我高，那就证明我很差劲/我属于这里是个错误”。\\n2. **寻找支持/反对证据**：\\n   - **支持证据**：你可能确实看到过一些很高的分数。\\n   - **反对证据**：一个学院几百上千人，怎么可能每个人的GPA都很高？GPA分布通常是正态曲线，一定有高有低。你看到的只是冰山一角。\\n3. **生成替代性想法**：“即使有些同学的GPA很高，也不代表我的价值更低。GPA只是衡量某一阶段学习成果的一个指标，它不能定义我的全部能力和未来。我的大学生活包含更多维度。”\\n4. **行为实验**：试着停止刷这类引发比较的信息流24小时，或者主动和一两位信任的朋友聊聊，你会发现大家都有各自的困扰，完美的“学霸人设”背后也有你看不到的压力。', '["进行一次“信息斋戒”：在未来的一周内，有意识地减少浏览小红书等平台上关于GPA、留学、求职等容易引发比较的内容。","重新定义你的坐标系：拿出一张纸，列出3-5个你对自己感到满意的、与GPA无关的特质或成就（如：你很擅长倾听、你组织过一次成功的活动、你坚持了一个爱好）。提醒自己，你是一个多面向的个体，而非一个数字。"]', NULL, '2026-06-16 11:05:30');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (8, 8, '学业比较引发的群体性焦虑，担心自己落后于同辈。', '一张社交媒体截图，用户询问澳门大学FBA（工商管理学院）的同学是否普遍拥有很高的GPA，并配有一个表示焦虑或哭泣的表情包。', '包装与隐藏信息拆解：这是一个典型的“信息求助”式包装。表面上是询问一个客观事实（大家的GPA高不高），但隐藏的深层动机是“确认自己的位置”和“寻找同类”。哭泣表情包的使用是一种情绪放大器，它将一个理性的问题软化为情感诉求，降低了提问的攻击性，同时更容易引发有同样感受的人的共鸣。它暗示了提问者可能感觉自己处于劣势。', '比较陷阱分析：这个问题的核心陷阱在于“幸存者偏差”和“选择性呈现”。在社交媒体上，人们倾向于展示自己的成功和高光时刻。当你在网上看到很多人分享高分、奖学金、offer时，你会误以为这是群体的常态，从而产生“大家都很强，只有我很差”的错觉。这个问题本身就在预设一个陷阱：如果答案是肯定的，那么提问者的自我价值感会立刻受到打击；如果答案是否定的，这种短暂的安慰也可能被下一个“凡尔赛”帖子打破。陷阱不在于事实如何，而在于你通过与他人比较来定义自己的价值。', '为什么会焦虑：1. **社会比较理论**：我们天生就有评估自己的需求，而在缺乏明确标准时，与他人比较是最便捷的方式。GPA作为一个量化指标，成为了完美的比较工具。2. **对不确定性的恐惧**：“是不是都...”这个问题反映了你对未知环境的恐惧。你害怕进入一个竞争激烈的环境后，自己会失去优势或变得平庸。3. **自我价值的外化**：你可能潜意识里将GPA与个人能力、未来前景甚至自我价值划上了等号。因此，他人的高分不仅仅是数字，更是对你自我价值的威胁。4. **错失恐惧(FOMO)**：担心因为自己信息不足或准备不够，而落后于他人。', '认知重构 (Cognitive Restructuring)', '让我们来挑战一下那个让你焦虑的自动思维：“如果别人的GPA都比我高，我就很差劲/完蛋了”。\\n\\n**证据搜寻**：\\n*   支持这个想法的证据是什么？（例如：我确实看到有人晒分）\\n*   反对这个想法的证据是什么？（例如：社交媒体是经过筛选的；一个人的价值不由单一数字决定；GPA高不代表一切能力都强；我也有我的优势）\\n\\n**替代性想法**：\\n*   “即使有些同学GPA很高，这只能说明他们在当前的评价体系下表现出色，并不代表我‘差’。我们的路径和优势不同。”\\n*   “GPA是我学习情况的一个参考指标，而不是衡量我整个人生价值的唯一标尺。我可以关注自己的进步，而不是与他人的差距。”\\n*   “这个问题没有标准答案，与其猜测环境，不如专注于我能控制的事情——我自己的学习过程。”', '["进行一次「信息断食」：在未来24-48小时内，刻意避免浏览任何与GPA、留学、求职相关的社交媒体内容。把注意力从外部评价体系拉回到你的现实生活，比如读几页书、散个步、和朋友聊个无关紧要的天。"]', NULL, '2026-06-16 13:02:42');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (9, 9, '学业比较引发的群体性焦虑与自我怀疑。', '一张社交媒体截图，用户询问澳门大学商学院（FBA）的同学是否普遍拥有很高的GPA，并配有一个表示焦虑或哭泣的表情符号。这反映了在特定学术圈层内因成绩比较而产生的普遍性不安。', '这则帖子通过一个看似简单的提问，巧妙地包装了深层的焦虑。它利用了“是不是都...”这种绝对化的句式，预设了一个“别人都很强”的前提。哭泣表情符号的使用，将一种可能引发竞争的提问，软化为一种寻求共鸣和安慰的姿态，降低了被攻击的风险，同时更容易吸引有同样感受的人。', '这是一个典型的“幸存者偏差”陷阱。在社交媒体上，人们倾向于展示自己最好的一面（如高GPA、奖学金），而沉默的大多数（成绩普通或挣扎的同学）是隐形的。当你用这些被筛选过的“高光时刻”作为基准线来衡量自己时，就不可避免地会感到挫败。你正在用一个虚构的、被美化的集体形象来审判真实的、不完美的自己。', '这种焦虑源于对“落后”的恐惧和对“归属感”的需求。在一个以学术成就为重要评价标准的环境（如商学院）中，GPA被等同于个人能力和未来前景。当感知到周围人似乎都轻松达到了高标准时，会产生强烈的“我不够好”、“我是个例外/失败者”的想法，从而威胁到你的自我价值感和安全感。', '去灾难化思维 (Decatastrophizing) 与 行为实验', '1. **挑战绝对化想法**：将“他们的GPA都好高”这个想法修改为更符合现实的版本：“我看到有些人分享了高GPA，但也有很多同学没有发声，我的感受是普遍的。”\\n2. **定义最坏结果**：问自己，“如果我的GPA确实比一些同学低，那真正最坏的结果是什么？”（例如：不是第一名？需要更努力找工作？）。你会发现，这个结果虽然令人不适，但并非世界末日。\\n3. **进行行为实验**：尝试与现实连接，而不是与屏幕连接。可以和身边一两个信任的朋友坦诚聊聊学业压力，你会发现“完美的GPA机器”并不存在，大家都有各自的挣扎。', '["主动进行“信息节食”，减少浏览此类易引发比较的社区话题，将注意力从“别人怎样”转移到“我今天能做什么”。","重新定义你的坐标系：设立基于个人成长的内部目标（如：这学期比上学期理解了更多概念），而非基于排名的外部目标。"]', NULL, '2026-06-16 13:03:14');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (10, 10, '学业比较引发的群体性焦虑与自我怀疑。', '一张社交媒体截图，用户询问澳门大学FBA（工商管理学院）的同学是否普遍拥有很高的GPA，并配有一个表示焦虑或哭泣的表情包。这反映了在特定学术圈层内，因信息不透明而产生的比较心理和自我怀疑。', '这则内容通过一个看似简单的提问，巧妙地包装了深层的焦虑。\\'是不是都...\\'的句式是一种典型的\\'幸存者偏差\\'式提问，它预设了一个可能并不存在的\\'高GPA普遍性\\'事实。哭泣表情包的使用，将抽象的学业压力具象化、情绪化，降低了提问的攻击性，更容易引发共鸣和同情，从而获得他人的回应和安慰。', '这是一个典型的\\'隐性比较陷阱\\'。用户并非在直接比较自己与某个具体的人，而是在将自己置于一个想象中的\\'平均水平\\'之下。这种基于模糊群体印象的比较，比面对具体对手更令人无力，因为\\'对手\\'是一个被理想化、平均化的完美形象。这种陷阱让人忽略了GPA分布的正态规律，只关注到了金字塔尖的少数人，从而产生\\'只有我不行\\'的错误认知。', '你感到焦虑，是因为在高度竞争的学术环境中，GPA被异化为衡量个人能力和未来前景的核心指标。当这个指标变得不确定时，你的安全感也随之崩塌。你害怕的不是GPA本身，而是\\'落后\\'和\\'被淘汰\\'的可能性。这种焦虑源于将自我价值与外部评价体系过度绑定，以及对社会比较的本能敏感。', '去灾难化思维 (Decatastrophizing)', '当你想到\\'别人GPA都很高\\'时，试着停下来问自己：1. 这个想法的证据是什么？是我看到了官方数据，还是只刷到了几个晒分的帖子？2. 最坏的结果是什么？如果我的GPA真的低于平均值，这是否意味着我的人生就失败了？3. 有没有其他可能性？比如，很多人选择不公开成绩？或者，不同专业、课程的评分标准本就不同？通过理性审视，你会发现，那个让你恐惧的\\'灾难性后果\\'其实并不存在。', '["进行一次\\'信息断舍离\\'：主动减少浏览此类引发焦虑的社区话题，将注意力从\\'别人怎样\\'转移到\\'我今天能做什么\\'上。","建立内部评价坐标：列出3-5个GPA之外的、你珍视的个人价值（如某项技能、品格特质、人际关系），提醒自己，你是一个多面向的人，而非一个数字。"]', NULL, '2026-06-16 13:06:39');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (11, 11, '因他人学业表现而产生自我怀疑与比较焦虑。', '一张社交媒体截图，用户询问澳门大学FBA（工商管理学院）的同学是否GPA都很高，并配有一个表示焦虑或哭泣的表情包，流露出对自身成绩的担忧和与他人比较的倾向。', '这张截图通过一个具体的、带有精英光环的标签（“澳门大学FBA”）和一个量化的、普遍认可的指标（“GPA”），构建了一个“别人都比我优秀”的叙事框架。哭泣表情包（🥺）是一种情感包装，它将内心的不安外化，既是在寻求共鸣和安慰，也是在潜意识里为自己可能“不够好”的结果做心理铺垫。整个提问本身就是一个精心设计的焦虑触发器。', '这是一个典型的“幸存者偏差”与“向上社会比较”的结合体。陷阱在于：1. **以偏概全**：将一个学院的所有学生视为一个均质的、高水平的整体，忽略了个体差异。2. **单一指标**：将复杂的个人价值和学习体验简化为GPA这一个数字。3. **被动比较**：通过提问的方式，主动将自己置于一个潜在的“被审判”位置，等待一个可能会加剧焦虑的答案。这个陷阱让你觉得，如果“大家都高”，那么“我不高”就是一种失败。', '你感到焦虑，是因为这个问题触及了几个核心痛点：**归属感威胁**——担心自己不符合所在群体的“标准”；**能力否定**——将GPA高低与个人智力、努力程度甚至未来前景直接挂钩；以及**不确定性**——对未知答案的恐惧。这种焦虑的本质不是GPA本身，而是害怕在比较中“掉队”，害怕自己的付出得不到认可，从而产生深刻的自我怀疑。你在用一个想象中的集体标准来衡量独一无二的自己。', '认知去中心化 (Cognitive Decentering)', '当你冒出‘他们是不是都比我强’的想法时，试着把它看作是“大脑产生的一个念头”，而不是“一个事实”。你可以这样对自己说：‘我注意到我正在把自己和别人比较，这让我感到焦虑。但这只是一个想法，不代表真相。’ 然后，主动寻找反面证据：你的同学中一定也有为GPA苦恼的人，只是他们没有发声。你的价值不由一个平均数定义。', '["进行一次“信息断舍离”：暂时减少浏览此类引发比较的帖子，将注意力从“别人怎么样”收回到“我今天学到了什么”上。","重新定义你的坐标系：列出3-5个GPA以外的、你引以为豪的个人优势或成就（如某个项目的领导力、一项独特的技能、帮助过他人的经历），提醒自己生命的维度远比一个数字宽广。"]', NULL, '2026-06-16 13:06:59');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (12, 12, '因他人优秀而自我怀疑，陷入学业比较的焦虑中。', '一位用户在社交媒体上提问，询问澳门大学FBA（工商管理学院）的同学是否GPA都很高，并配有一个哭泣的表情符号，流露出对自身成绩的不安和与同学比较后的压力。', '这则动态通过一个具体的、带有精英色彩的场景（澳大商学院）和量化指标（GPA）来包装焦虑。哭泣表情符号是一种情绪放大器，它将内心的不安外化，旨在快速唤起观者的同情或共鸣，从而获得情感支持或确认性信息。其隐藏信息是：“我感到自己格格不入，我需要知道我不是唯一的一个。”', '这是一个典型的“幸存者偏差”陷阱。用户可能看到了社交媒体上部分同学晒出的高GPA，便以偏概全地认为“所有人”都如此。这种将他人的“展示面”（通常是最好的结果）与自己“全面且真实”的感受（包括挣扎和失败）进行比较，必然导致巨大的心理落差。陷阱在于，你正在用一个集体的、被美化的虚构标准来衡量一个真实的、个体的自己。', '你的焦虑源于对“相对位置”的恐惧。在竞争激烈的环境中（如商学院），GPA不仅是一个数字，更被赋予了衡量个人价值、未来前景和群体归属感的意义。当你感觉自己的GPA可能低于 perceived norm（感知到的常态）时，会触发“我不够好”、“我会被淘汰”的深层不安全感。这种不确定性比一个确定的坏消息更让人煎熬。', '去灾难化思维 (Decatastrophizing) 与 检验证据', '让我们一起来检验这个想法：\\'所有FBA同学的GPA都很高\\'。1. **寻找证据**：你认识每一位FBA的同学吗？你是否看到过有人分享学习上的困难或成绩不理想的经历？2. **考虑替代解释**：那些高GPA是他们生活的全部吗？一个较低的GPA是否意味着学术生涯或未来职业的彻底失败？3. **最坏结果**：即使你的GPA真的不高，最坏的结果是什么？这个结果真的无法应对或改变吗？试着将\\'所有人\\'这个绝对化的词替换为\\'一部分人\\'，看看你的感受是否有变化。', '["进行一次「信息断舍离」：暂时减少浏览此类易引发比较的社交内容，将注意力从“别人怎样”收回到“我今天能做什么”上来。","建立「个人成长基线」：记录自己每一天的小进步，比如理解了一个复杂的概念。将评价体系从与他人横向比较，转为与过去的自己纵向比较。"]', NULL, '2026-06-16 13:16:28');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (13, 13, '学业比较引发的焦虑，担心自己落后于群体。', '一张社交媒体截图，用户询问澳门大学FBA（工商管理学院）的同学是否GPA都很高，并配有一个表示紧张、哭泣的emoji，透露出对自身成绩的担忧和与他人的比较。', '这则帖子通过一个具体的、带有精英标签的问题（“澳大FBA”）来包装一种普遍的、模糊的焦虑。哭泣的emoji是一种情绪放大器，它将“我成绩不好”这个事实，包装成了“我是不是格格不入/我很差劲”的恐惧。这种包装方式能迅速吸引有相似经历的人，形成共鸣。', '这是一个典型的“幸存者偏差”与“代表性启发”结合的比较陷阱。提问者可能看到了少数在社交网络上分享高GPA的同学，便以偏概全地认为“大家都很高”。这种陷阱在于，它用一个被筛选过的、不完整的样本（社交媒体上的展示）来衡量自己（完整的现实），从而得出一个必然让自己受挫的结论。', '你感到焦虑，是因为你的自我价值感暂时与GPA这个单一指标过度挂钩了。当这个指标被认为“普遍很高”时，你会感觉自己在一个竞争激烈的环境中处于劣势，从而触发原始的“我被群体抛弃”的不安全感。社交媒体上展示的往往是经过筛选的“高光时刻”，而你是在用自己全面的、包含低谷的现实去对比别人精心修饰的局部。', '认知去中心化 (Cognitive Decentering)', '试着将自己从“思考”中抽离出来，像一个旁观者一样观察自己的想法。当‘大家GPA都好高，我好差’这个念头出现时，不要把它当成事实，而是把它标记为‘我正在有一个关于比较的想法’。然后，温和地问自己：这个想法的证据是什么？除了这几个发帖的人，我认识的FBA同学呢？他们的GPA分布是怎样的？有没有人也在为GPA苦恼？通过这种方式，你可以看到这个想法只是众多念头中的一个，而非绝对真理。', '["进行一次小范围的“现实核查”：和你身边1-2个信任的同专业朋友聊聊，你会发现沉默的大多数和你有相似的困扰，高GPA并非普遍现象。","重新定义你的“坐标系”：将关注点从“与他人比”转移到“与自己比”。记录下你这学期相比上学期的进步，哪怕是很小的进步，这都是属于你自己的、真实的成长。"]', NULL, '2026-06-16 13:16:47');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (14, 14, '因负面新闻引发对旅行安全的过度担忧与决策焦虑。', '用户发帖询问横琴口岸安全情况，表示想住那边但因看到之前的安全事故而犹豫。帖子带有相关地点和演唱会标签，引发了较多关注和讨论。', '帖子通过“宝宝们”的亲昵称呼和“有点犹豫了”的示弱语气，构建了一个真实、需要帮助的形象，极易引发评论区关于安全信息的分享和情绪共振。', '这是一种隐性的“风险比较”陷阱。当社交媒体上集中展示个别安全事故时，会让人产生“那里很危险”的错觉（可得性启发法），从而高估实际风险概率，陷入与他人“无忧无虑状态”的比较中，觉得自己过于胆小或不幸。', '你的焦虑源于对“失控感”的恐惧。负面新闻激活了大脑的生存本能（杏仁核），让你将极小概率事件放大为必然威胁。这种“万一发生在我身上怎么办”的灾难化思维，剥夺了你享受当下的能力。', '认知去灾难化 (Decatastrophizing)', '试着问自己：1. 我所担心的最坏结果是什么？发生的客观概率究竟有多少？2. 即使发生了，我是否有应对方案？3. 社交媒体上的负面信息是否代表了全部真相？通过理性评估概率，将情绪化的恐惧还原为可管理的风险。', '["进行“信息斋戒”：暂时停止搜索相关事故新闻，避免反复咀嚼焦虑源。","寻求权威信源：通过官方渠道或实时数据了解当前治安状况，而非依赖碎片化的社交讨论。","制定“B计划”：提前了解当地的应急联系方式或医院位置，用具体的准备行动来对抗未知的恐惧。"]', NULL, '2026-06-19 13:16:32');
+INSERT INTO `analysis_results` (`id`, `record_id`, `one_sentence_summary`, `screenshot_summary`, `packaging_analysis`, `comparison_trap_analysis`, `why_you_feel_anxious`, `cbt_method_name`, `cbt_content`, `suggestions`, `raw_ai_response_json`, `created_at`) VALUES (15, 15, '因负面新闻产生对目的地的安全焦虑，引发旅行决策动摇。', '用户“咪吧”发布笔记，表达想去横琴口岸附近住宿的意愿，但因看到此前发生的安全事故而感到犹豫和担忧。帖子带有相关地点标签，引发了较高的互动量。', '采用大字报式的视觉冲击，用荧光绿高亮“横琴口岸”与“安全事故”这两个核心冲突点。通过“宝宝们”这种亲昵称呼拉近距离，将个体的恐惧转化为群体的共同话题，利用“之前发生的”这一模糊时间点，激发读者的联想与不安。', '这里并非典型的“人不如人”比较，而是陷入了“信息不对称”与“概率误判”的陷阱。社交媒体的算法倾向于推送极端、负面的个案（如事故），导致用户高估了风险发生的实际概率。你看到的“别人遇到的危险”，在庞大的出行基数下可能只是极小概率事件，但感官上被无限放大了。', '1. **损失厌恶心理**：对潜在危险的恐惧远大于对旅行快乐的期待；2. **可得性启发**：因为最近看到了相关新闻，大脑错误地认为该地“很不安全”；3. **控制感缺失**：面对未知的环境和他人的经历，感到自己无法掌控局面。', '去灾难化思维 (Decatastrophizing)', '试着问自己三个问题来打破灾难联想：1. 这种“不安全”最坏的结果是什么？发生的客观概率究竟有多少？2. 我是否只关注了负面新闻，而忽略了数以万计平安抵达的游客数据？3. 如果我决定不去，我的遗憾感是否会超过那份担忧？', '["进行‘事实核查’：去官方渠道或权威旅游平台查看近期的真实治安评价，而非仅依赖情绪化的社媒碎片。","设置‘信息隔离区’：如果已决定前往，出发前24小时停止搜索该地的负面关键词，避免临行前的自我恐吓。","制定‘B计划’：提前查好当地的急救电话、医院位置或备选酒店，用具体的行动方案替代模糊的恐惧，找回掌控感。"]', NULL, '2026-06-19 13:16:43');
+
+DROP TABLE IF EXISTS `analysis_risk_states`;
+CREATE TABLE `analysis_risk_states` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `is_high_risk` tinyint(1) NOT NULL DEFAULT 0,
+  `risk_status` enum('none','pending','handled') NOT NULL DEFAULT 'none',
+  `trigger_reason_summary` text DEFAULT NULL,
+  `handled_at` datetime DEFAULT NULL,
+  `handled_action` enum('continue_view','return_home') DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_id` (`record_id`),
+  CONSTRAINT `fk_risk_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (1, 1, 0, 'none', NULL, NULL, NULL, '2026-06-16 08:27:10', '2026-06-16 08:27:10');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (2, 2, 0, 'none', NULL, NULL, NULL, '2026-06-16 08:51:17', '2026-06-16 08:51:17');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (3, 3, 0, 'none', NULL, NULL, NULL, '2026-06-16 08:56:26', '2026-06-16 08:56:26');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (4, 4, 0, 'none', NULL, NULL, NULL, '2026-06-16 09:01:07', '2026-06-16 09:01:07');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (5, 5, 0, 'none', NULL, NULL, NULL, '2026-06-16 09:02:12', '2026-06-16 09:02:12');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (6, 6, 0, 'none', NULL, NULL, NULL, '2026-06-16 11:05:02', '2026-06-16 11:05:02');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (7, 7, 0, 'none', NULL, NULL, NULL, '2026-06-16 11:05:30', '2026-06-16 11:05:30');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (8, 8, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:02:42', '2026-06-16 13:02:42');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (9, 9, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:03:14', '2026-06-16 13:03:14');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (10, 10, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:06:39', '2026-06-16 13:06:39');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (11, 11, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:06:59', '2026-06-16 13:06:59');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (12, 12, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:16:28', '2026-06-16 13:16:28');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (13, 13, 0, 'none', NULL, NULL, NULL, '2026-06-16 13:16:47', '2026-06-16 13:16:47');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (14, 14, 0, 'none', NULL, NULL, NULL, '2026-06-19 13:16:32', '2026-06-19 13:16:32');
+INSERT INTO `analysis_risk_states` (`id`, `record_id`, `is_high_risk`, `risk_status`, `trigger_reason_summary`, `handled_at`, `handled_action`, `created_at`, `updated_at`) VALUES (15, 15, 0, 'none', NULL, NULL, NULL, '2026-06-19 13:16:43', '2026-06-19 13:16:43');
+
+DROP TABLE IF EXISTS `analysis_sources_snapshot`;
+CREATE TABLE `analysis_sources_snapshot` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `knowledge_item_id` bigint(20) unsigned DEFAULT NULL COMMENT '可能为 NULL（0 匹配时）',
+  `title_snapshot` varchar(60) NOT NULL,
+  `category_name_snapshot` varchar(50) DEFAULT NULL,
+  `summary_snapshot` text DEFAULT NULL,
+  `reason_snapshot` varchar(50) DEFAULT NULL COMMENT '为什么用于本次分析',
+  `sort_order` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_record` (`record_id`),
+  CONSTRAINT `fk_ss_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (1, 1, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (2, 2, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (3, 3, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (4, 4, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (5, 5, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (6, 6, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (7, 7, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (8, 8, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (9, 9, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (10, 10, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (11, 11, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (12, 12, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (13, 13, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (14, 14, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+INSERT INTO `analysis_sources_snapshot` (`id`, `record_id`, `knowledge_item_id`, `title_snapshot`, `category_name_snapshot`, `summary_snapshot`, `reason_snapshot`, `sort_order`) VALUES (15, 15, NULL, '本次分析未匹配到特定知识条目', NULL, '本次分析未匹配到特定知识条目，基于通用知识生成', '本次分析未匹配到特定知识条目，基于通用知识生成', 0);
+
 DROP TABLE IF EXISTS `audit_logs`;
 CREATE TABLE `audit_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -51,6 +459,39 @@ CREATE TABLE `audit_logs` (
   KEY `idx_admin` (`admin_user_id`),
   KEY `idx_created` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `file_assets`;
+CREATE TABLE `file_assets` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `owner_user_id` bigint(20) unsigned NOT NULL,
+  `file_type` enum('avatar','screenshot','ocr_text','other') NOT NULL,
+  `original_name` varchar(255) NOT NULL,
+  `mime_type` varchar(100) NOT NULL,
+  `size_bytes` bigint(20) unsigned NOT NULL,
+  `storage_path` varchar(500) NOT NULL,
+  `storage_type` enum('local','oss') NOT NULL DEFAULT 'local',
+  `width` int(10) unsigned DEFAULT NULL,
+  `height` int(10) unsigned DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_owner` (`owner_user_id`),
+  KEY `idx_type` (`file_type`),
+  CONSTRAINT `fk_file_user` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (1, 1, 'screenshot', '世一狙.jpg', 'image/jpeg', 101712, 'uploads\\tmp\\mqgbesi3_xtjpa6zb.jpg', 'local', NULL, NULL, '2026-06-16 07:22:55');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (2, 1, 'screenshot', '世一狙.jpg', 'image/jpeg', 101712, 'uploads\\tmp\\mqgbm587_lgtzgb1u.jpg', 'local', NULL, NULL, '2026-06-16 07:28:38');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (3, 1, 'screenshot', '305254e2ae45b32de3f25eec58199910.jpg', 'image/jpeg', 141742, 'uploads\\tmp\\mqgbox3f_nlue94sn.jpg', 'local', NULL, NULL, '2026-06-16 07:30:48');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (4, 1, 'screenshot', '305254e2ae45b32de3f25eec58199910.jpg', 'image/jpeg', 141742, 'uploads\\tmp\\mqgbpcc6_x6hiphyx.jpg', 'local', NULL, NULL, '2026-06-16 07:31:07');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (5, 1, 'screenshot', '305254e2ae45b32de3f25eec58199910.jpg', 'image/jpeg', 141742, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgcezmg_m4q8sjfz.jpg', 'local', NULL, NULL, '2026-06-16 07:51:04');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (6, 1, 'screenshot', '305254e2ae45b32de3f25eec58199910.jpg', 'image/jpeg', 141742, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgd41xb_65w7nxd9.jpg', 'local', NULL, NULL, '2026-06-16 08:10:33');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (7, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgda51k_digf6k0i.png', 'local', NULL, NULL, '2026-06-16 08:15:17');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (8, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgevmc8_6jir4fv3.png', 'local', NULL, NULL, '2026-06-16 08:59:59');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (9, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgjbpcc_pguss2g6.png', 'local', NULL, NULL, '2026-06-16 11:04:28');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (10, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgnj5qh_9d7iaxag.png', 'local', NULL, NULL, '2026-06-16 13:02:14');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (11, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgnod5l_r0tisnpf.png', 'local', NULL, NULL, '2026-06-16 13:06:17');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (12, 1, 'screenshot', '30a0ef293f7604c0657fc91255e54150.png', 'image/png', 86073, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqgo0mfx_qurdtvsv.png', 'local', NULL, NULL, '2026-06-16 13:15:49');
+INSERT INTO `file_assets` (`id`, `owner_user_id`, `file_type`, `original_name`, `mime_type`, `size_bytes`, `storage_path`, `storage_type`, `width`, `height`, `created_at`) VALUES (13, 1, 'screenshot', 'fa3e87960542ec6c917c02112353232f.jpg', 'image/jpeg', 164274, 'D:\\VIBECODING\\spiritualrefuge\\uploads\\tmp\\mqkycgqx_ocxr14mq.jpg', 'local', NULL, NULL, '2026-06-19 13:16:02');
 
 DROP TABLE IF EXISTS `home_quotes`;
 CREATE TABLE `home_quotes` (
@@ -2027,6 +2468,44 @@ CREATE TABLE `note_tags` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `note_tags` (`id`, `user_id`, `tag_name`, `created_at`) VALUES (1, 1, '反思', '2026-06-17 15:07:39');
+
+DROP TABLE IF EXISTS `notes`;
+CREATE TABLE `notes` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(60) NOT NULL,
+  `body` text DEFAULT NULL COMMENT '正文，最多 5000 字',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_user_time` (`user_id`,`updated_at`),
+  CONSTRAINT `fk_note_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `record_custom_tag_relations`;
+CREATE TABLE `record_custom_tag_relations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `record_id` bigint(20) unsigned NOT NULL,
+  `tag_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_record_tag` (`record_id`,`tag_id`),
+  KEY `idx_record` (`record_id`),
+  KEY `fk_rctr_tag` (`tag_id`),
+  CONSTRAINT `fk_rctr_record` FOREIGN KEY (`record_id`) REFERENCES `analysis_records` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_rctr_tag` FOREIGN KEY (`tag_id`) REFERENCES `record_custom_tags` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `record_custom_tags`;
+CREATE TABLE `record_custom_tags` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `tag_name` varchar(10) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_user_tag` (`user_id`,`tag_name`),
+  KEY `idx_user` (`user_id`),
+  CONSTRAINT `fk_rct_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `search_logs`;
 CREATE TABLE `search_logs` (

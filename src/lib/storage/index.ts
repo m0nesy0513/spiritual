@@ -4,12 +4,6 @@ import path from 'path'
 const PROJECT_ROOT = process.cwd()
 const UPLOAD_BASE = path.join(PROJECT_ROOT, 'uploads')
 
-/**
- * 文件存储适配器
- * - 开发环境：本地 uploads/ 目录
- * - 生产环境：Vercel Blob
- */
-
 export interface StoredFile {
   fileId: string
   originalName: string
@@ -17,49 +11,38 @@ export interface StoredFile {
   size: number
   storagePath: string
   ownerUserId: string
+  data?: string // base64 fallback for Zeabur
 }
 
-async function checkBlob() {
-  try {
-    const mod = await import('@vercel/blob')
-    return mod
-  } catch { return null }
+// 确保目录
+function ensureDir(dir: string) {
+  if (!fs.existsSync(dir)) {
+    try { fs.mkdirSync(dir, { recursive: true }) } catch {}
+  }
 }
 
-// ========== 保存文件 ==========
-
+/** 保存文件 — 本地优先，fallback 到内存 base64 */
 export async function saveFile(
   file: File | Blob,
   subDir: string,
   ownerUserId: string,
   filename: string,
 ): Promise<StoredFile> {
-  const blobMod = await checkBlob()
-
-  if (blobMod && process.env.BLOB_READ_WRITE_TOKEN) {
-    // === Vercel Blob ===
-    const key = `${subDir}/${filename}`
-    const { url } = await blobMod.put(key, file, {
-      access: 'public',
-      addRandomSuffix: false,
-    })
-    return {
-      fileId: filename,
-      originalName: file instanceof File ? file.name : 'upload',
-      mimeType: file.type,
-      size: file.size,
-      storagePath: url,
-      ownerUserId,
-    }
-  }
-
-  // === 本地文件系统 ===
-  const dir = path.join(UPLOAD_BASE, subDir)
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-
-  const storagePath = path.join(dir, filename)
   const buffer = Buffer.from(await file.arrayBuffer())
-  fs.writeFileSync(storagePath, buffer)
+  const base64 = buffer.toString('base64')
+
+  // 尝试写本地磁盘
+  let storagePath = ''
+  try {
+    const dir = path.join(UPLOAD_BASE, subDir)
+    ensureDir(dir)
+    const fp = path.join(dir, filename)
+    fs.writeFileSync(fp, buffer)
+    storagePath = fp
+  } catch {
+    // 无本地磁盘 → fallback 到 base64
+    storagePath = `base64:${base64}`
+  }
 
   return {
     fileId: filename,
@@ -68,50 +51,32 @@ export async function saveFile(
     size: file.size,
     storagePath,
     ownerUserId,
+    data: !fs.existsSync(storagePath) ? base64 : undefined,
   }
 }
-
-// ========== 删除文件 ==========
 
 export async function deleteFile(storagePath: string): Promise<void> {
   try {
-    const blobMod = await checkBlob()
-
-    if (blobMod && process.env.BLOB_READ_WRITE_TOKEN && storagePath.startsWith('http')) {
-      // Vercel Blob — 通过 URL 删除
-      await blobMod.del(storagePath)
-      return
-    }
-
-    // 本地文件系统
+    if (storagePath.startsWith('base64:')) return
     if (fs.existsSync(storagePath)) fs.unlinkSync(storagePath)
-  } catch (error) {
-    console.error(`Failed to delete file: ${storagePath}`, error)
-  }
+  } catch {}
 }
 
-// ========== 读取文件 ==========
-
 export function readFile(storagePath: string): Buffer {
-  // Vercel Blob URL 也可以在 API route 里用 Response 处理
-  // readFile 只用于本地文件系统
-  if (storagePath.startsWith('http')) {
-    throw new Error('readFile not supported for remote URLs — use Response.redirect or fetch')
+  if (storagePath.startsWith('base64:')) {
+    return Buffer.from(storagePath.replace('base64:', ''), 'base64')
   }
   return fs.readFileSync(storagePath)
 }
 
-// ========== 工具函数 ==========
-
 export function fileExists(storagePath: string): boolean {
-  if (storagePath.startsWith('http')) return true
+  if (storagePath.startsWith('base64:')) return true
   return fs.existsSync(storagePath)
 }
 
 export function moveFile(from: string, to: string): void {
-  if (from.startsWith('http')) return
-  const toDir = path.dirname(to)
-  if (!fs.existsSync(toDir)) fs.mkdirSync(toDir, { recursive: true })
+  if (from.startsWith('base64:') || to.startsWith('base64:')) return
+  ensureDir(path.dirname(to))
   fs.renameSync(from, to)
 }
 

@@ -1,5 +1,5 @@
 /**
- * 数据库导出脚本 — 生成 SQL 文件用于阿里云导入
+ * 数据库导出 — 全部表结构 + 全部数据
  * 用法：node scripts/export-db.mjs
  */
 
@@ -17,31 +17,21 @@ async function main() {
     database: 'spiritualrefuge', charset: 'utf8mb4',
   })
 
-  // 所有需要导出的表
   const tables = await conn.query('SHOW TABLES')
   const names = tables[0].map(r => Object.values(r)[0])
-    .filter(n => !n.startsWith('analysis_') && !n.startsWith('notes') && !n.startsWith('record_') && !n.startsWith('file_'))
 
-  let sql = `-- 精神避难所 — 数据库导入
--- 生成时间：${new Date().toISOString()}
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
-`
+  let sql = `-- 精神避难所 — 数据库完整导入\n-- ${new Date().toISOString()}\n\nSET NAMES utf8mb4;\nSET FOREIGN_KEY_CHECKS = 0;\n\n`
 
   for (const table of names) {
-    // CREATE TABLE
     const [createRows] = await conn.query(`SHOW CREATE TABLE \`${table}\``)
     sql += `DROP TABLE IF EXISTS \`${table}\`;\n`
     sql += createRows[0]['Create Table'] + ';\n\n'
 
-    // INSERT data
     const [rows] = await conn.query(`SELECT * FROM \`${table}\``)
     if (rows.length === 0) continue
 
     const columns = Object.keys(rows[0])
-    const values = rows.map(row => {
+    for (const row of rows) {
       const vals = columns.map(col => {
         const v = row[col]
         if (v === null) return 'NULL'
@@ -50,10 +40,9 @@ SET FOREIGN_KEY_CHECKS = 0;
         if (typeof v === 'number') return String(v)
         return `'${String(v)}'`
       })
-      return `INSERT INTO \`${table}\` (\`${columns.join('`, `')}\`) VALUES (${vals.join(', ')});`
-    }).join('\n')
-
-    sql += values + '\n\n'
+      sql += `INSERT INTO \`${table}\` (\`${columns.join('`, `')}\`) VALUES (${vals.join(', ')});\n`
+    }
+    sql += '\n'
   }
 
   sql += `SET FOREIGN_KEY_CHECKS = 1;\n`
