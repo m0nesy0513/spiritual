@@ -20,7 +20,7 @@ export const authConfig = {
   /** Cookie 配置 */
   cookieOptions: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: false, // TODO: 配好 HTTPS 后改为 true
     sameSite: 'lax' as const,
     path: '/',
     maxAge: 60 * 60 * 24 * 7, // 7 天

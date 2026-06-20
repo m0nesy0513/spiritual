@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     const users = await query<any>(
       `SELECT u.id, u.username FROM users u
        JOIN user_credentials uc ON uc.user_id = u.id
-       WHERE uc.credential_type = ? AND uc.credential_value = ? AND u.deleted_at IS NULL LIMIT 1`,
+       WHERE uc.credential_type = ? AND uc.credential_value = ? LIMIT 1`,
       [credentialType, credentialValue],
     )
     if (users.length === 0) return error({ statusCode: 404, code: 'NOT_FOUND', message: '未找到该用户' } as any)
