@@ -5,12 +5,16 @@
  *
  * 包含:
  * 1. 知识库分类 + 60+ 条内容
- * 2. 首页名言 12 条
+ * 2. 首页名言 12 条（已升级为 100 条）
  * 3. 好歌推荐
  * 4. 系统文案初始值
+ *
+ * 焦虑类型解释 从 Excel 读取（100 条），其他分类保持内联数据。
  */
 
 import mysql from 'mysql2/promise'
+import * as XLSX from 'xlsx'
+import * as path from 'path'
 
 const DB_CONFIG = {
   host: process.env.DATABASE_HOST || '127.0.0.1',
@@ -54,202 +58,9 @@ interface SeedKnowledgeItem {
 }
 
 const KNOWLEDGE_ITEMS: SeedKnowledgeItem[] = [
-  // ---------- 焦虑类型解释（12 条）----------
-  {
-    categoryIndex: 0,
-    title: '为什么朋友圈容易制造比较焦虑',
-    body: `## 为什么朋友圈容易制造比较焦虑
-
-朋友圈是一个高度选择性的展示平台。人们通常只发布生活中的"高光时刻"：旅行、聚餐、成就、甜蜜的恋爱瞬间……
-
-**关键认知：**
-- 你看到的是对方精心挑选的片段，不是完整生活
-- 朋友不会把烦恼、失败、平淡时刻发到朋友圈
-- 微信好友数量庞大，每天总有人发布精彩内容，但这不代表"所有人都过得比你好"
-
-**应对方法：**
-1. 提醒自己，朋友圈只是"精选集"，不是"完整纪录片"
-2. 关注自己今天的生活中值得感恩的小事
-3. 如果某个人持续让你感到焦虑，考虑暂时屏蔽或减少关注`,
-    tags: ['朋友圈', '比较焦虑', '熟人社交'],
-    applicable_scene: '看到朋友圈中熟人展示的精彩生活时产生焦虑',
-  },
-  {
-    categoryIndex: 0,
-    title: '小红书精致生活焦虑',
-    body: `## 小红书与精致生活焦虑
-
-小红书上的内容普遍经过精心策划和制作。博主们投入大量时间拍摄、修图、写文案，创造出来的是一份"作品"，而不是日常记录。
-
-**你需要知道的：**
-- 那些整齐的书桌背后可能只有这一个角落是整洁的
-- 那个完美的早餐摆拍可能需要花 30 分钟，但博主不会告诉你
-- 护肤流程看起来高级，但很多是广告合作
-
-**关键是区分"内容创作"和"真实生活"。**`,
-    tags: ['小红书', '精致生活', '人设包装'],
-    applicable_scene: '看到小红书上精致的内容产生生活不如人的感觉',
-  },
-  {
-    categoryIndex: 0,
-    title: '微博焦虑与信息过载',
-    body: `## 微博焦虑与信息过载
-
-微博的信息更新速度极快，内容混杂了新闻、情绪、八卦、观点。长时间浏览会让人感到烦躁和无力。
-
-**焦虑来源：**
-- 负面新闻过度曝光导致"世界很糟糕"的错觉
-- 评论区对立和争吵消耗情绪
-- FOMO（害怕错过）让人不断刷新
-
-**建议：限制每天的社交平台使用时间来管理焦虑。**`,
-    tags: ['微博', '信息过载', 'FOMO'],
-    applicable_scene: '刷微博后感到烦躁不安或信息过载',
-  },
-  {
-    categoryIndex: 0,
-    title: '抖音短视频与注意力焦虑',
-    body: `## 抖音短视频与注意力焦虑
-
-短视频平台的设计核心是快速刺激多巴胺分泌。每一条视频都是一次即时的情绪奖励。
-
-**影响机制：**
-- 15 秒一刷的模式训练大脑追求即时满足
-- 看到别人几秒钟展示的"才华""颜值""生活"容易产生错觉
-- 长时间刷完感到空虚和疲惫是常态
-
-**这不是你的错——产品设计师利用了你的注意力和比较心理。**`,
-    tags: ['抖音', '短视频', '注意力'],
-    applicable_scene: '刷抖音后感到空虚、焦虑或自我怀疑',
-  },
-  {
-    categoryIndex: 0,
-    title: 'B 站内容焦虑',
-    body: `## B 站内容焦虑
-
-B 站上的内容创作者往往展示了非常出色的能力：学霸的学习方法、UP 主的精致日常、技术大佬的编程能力……
-
-**容易产生焦虑的原因：**
-- 把别人的专业水准和自己的日常状态对比
-- UP 主的内容是他们的"作品"，经过大量剪辑和准备
-- 学习方法的视频不等于学习习惯的体现
-
-**记住：你看到的是一段经过精心制作的视频，不是对方真实的每一分钟。**`,
-    tags: ['B站', '学习焦虑', '内容创作'],
-    applicable_scene: '在 B 站看到优秀 UP 主的内容后产生自我怀疑',
-  },
-  {
-    categoryIndex: 0,
-    title: '学习/成绩/上岸焦虑',
-    body: `## 学习/成绩/上岸焦虑
-
-这是社交媒体上最常见的焦虑之一。考研上岸、考公成功、拿到 offer、绩点排名……这些内容高频出现在社交平台上。
-
-**焦虑的根源：**
-- 感觉自己在人生的赛道上落后了
-- 把别人的阶段性成果当成永恒的优势
-- 忽视了自己的独特节奏和路径
-
-**重要认知：人生不是一场赛跑。每个人的起点、方向、节奏都不一样。**`,
-    tags: ['学习', '成绩', '上岸', '考研', '公考'],
-    applicable_scene: '看到他人晒成绩、上岸消息时产生焦虑',
-  },
-  {
-    categoryIndex: 0,
-    title: '消费与生活方式焦虑',
-    body: `## 消费与生活方式焦虑
-
-社交媒体上充斥着旅行、购物、美食、穿搭等内容。这些内容暗示了一种"理想的生活方式"，让人产生"我的生活不够好"的感觉。
-
-**看清本质：**
-- 许多内容背后是品牌合作和广告
-- 旅行照片不展示舟车劳顿和消费压力
-- 消费不是衡量生活质量的唯一标准
-
-**真正的富足来自内心的满足感，不是购物车的数量。**`,
-    tags: ['消费', '旅行', '生活方式', '物质'],
-    applicable_scene: '看到他人的消费和旅行内容产生羡慕和焦虑',
-  },
-  {
-    categoryIndex: 0,
-    title: '外貌/身材焦虑',
-    body: `## 外貌/身材焦虑
-
-社交媒体上的照片经过了精心选择、修图、滤镜处理。即使知道这一点，反复观看这些图片仍然可能引发对自己外貌的不满。
-
-**你需要了解：**
-- 大多数社交媒体图片经过滤镜和美颜处理
-- 光线、角度、姿势都对最终效果影响巨大
-- 健康和自信比迎合某种审美标准重要得多
-
-**身体是你生活的基础，不是你用来展示给别人看的作品。**`,
-    tags: ['外貌', '身材', '滤镜', '审美'],
-    applicable_scene: '看到他人照片后对自己的外貌产生不满',
-  },
-  {
-    categoryIndex: 0,
-    title: '恋爱/亲密关系焦虑',
-    body: `## 恋爱/亲密关系焦虑
-
-社交媒体上展示的恋爱关系通常是甜蜜瞬间，不是完整的相处状态。
-
-**隐藏的信息：**
-- 恋爱不是人生的必需品
-- 每段关系都有磨合和矛盾，只是别人不会晒出来
-- 合拍的伴侣值得祝福，但单身也完全可以过得充实和幸福
-
-**一段好的关系会让两个人都变得更好，但不需要用别人展示的关系标准来衡量自己。**`,
-    tags: ['恋爱', '亲密关系', '单身'],
-    applicable_scene: '看到他人秀恩爱时产生孤独感或焦虑',
-  },
-  {
-    categoryIndex: 0,
-    title: '熟人朋友圈比较焦虑',
-    body: `## 熟人朋友圈比较焦虑
-
-熟人带来的压力往往比陌生人更大。你认识他们，知道他们的背景，所以当他们展示成就时，更容易让你产生"为什么我不行"的想法。
-
-**理解这种焦虑：**
-- 你比较的是对方的全部（含优点）和你的劣势
-- 熟人不会经常在朋友圈展示他们的失败和烦恼
-- 每个人展示的都是他们希望被看见的一面
-
-**你的成长不需要和别人同步。你只需要比昨天的自己更进一步。**`,
-    tags: ['熟人', '朋友圈', '比较'],
-    applicable_scene: '看到熟人的动态时产生强烈的比较心理',
-  },
-  {
-    categoryIndex: 0,
-    title: '事业/成功焦虑',
-    body: `## 事业/成功焦虑
-
-社交媒体上经常能看到同龄人"创业成功""年入百万""大厂升职"等内容。
-
-**看到这些内容时，问自己：**
-1. 这些信息的真实性如何？
-2. 即使是真的，它定义了我自己的价值吗？
-3. 我目前在做什么，是否也在进步？
-
-**成功有千万种定义，不要让别人替你定义。**`,
-    tags: ['事业', '成功', '职场'],
-    applicable_scene: '看到同龄人事业成功时感到压力和焦虑',
-  },
-  {
-    categoryIndex: 0,
-    title: '自律人设与松弛感人设焦虑',
-    body: `## 自律人设与松弛感人设焦虑
-
-社交媒体上有两种看似对立的人设：
-- **自律达人**：每天 5 点起床、健身、学习、工作、读书……
-- **松弛感生活者**：看起来毫不费力却生活得很好……
-
-**两者的共同点：都是人设包装。**
-- 自律内容只展示执行结果，不展示坚持的痛苦和失败的时候
-- 松弛内容可能经过了大量准备和取景
-- 真实的生活在两者之间：有时候很努力，有时候也需要休息`,
-    tags: ['自律', '松弛感', '人设', '矛盾'],
-    applicable_scene: '同时看到自律和松弛两种人设时产生矛盾焦虑',
-  },
+  // ⚠️ 焦虑类型解释（categoryIndex: 0）已迁移至 Excel：
+  //    社交媒体焦虑知识库_焦虑类型解释_新增100条版.xlsx（100 条）
+  //    由 loadAnxietyTypeItems() 动态读取，见文件底部。
 
   // ---------- 人设图鉴（12 条）----------
   {
@@ -1194,6 +1005,60 @@ const ADMIN_CONTENTS = [
 ]
 
 // ============================================
+// 从 Excel 加载焦虑类型解释（100 条）
+// ============================================
+
+interface ExcelRow {
+  title: string
+  body: string
+  tags: string
+  applicable_scene: string
+  source_note: string
+  is_home_recommended: string
+}
+
+function loadAnxietyTypeItems(): SeedKnowledgeItem[] {
+  try {
+    const excelPath = path.resolve(
+      __dirname,
+      '../社交媒体焦虑知识库_焦虑类型解释_新增100条版.xlsx',
+    )
+    const wb = XLSX.readFile(excelPath)
+    const sheet = wb.Sheets[wb.SheetNames[0]]
+    const raw = XLSX.utils.sheet_to_json<any[]>(sheet, { header: 1 })
+
+    const items: SeedKnowledgeItem[] = []
+    // Excel rows 3-102 are the 100 items (0-indexed: 3-102)
+    for (let i = 3; i <= 102; i++) {
+      const r = raw[i]
+      if (!r || !r[0]) continue
+
+      const tagNames = String(r[3] ?? '')
+        .split(/[,，]/)
+        .map((t: string) => t.trim())
+        .filter((t: string) => t.length > 0)
+
+      items.push({
+        categoryIndex: 0, // 焦虑类型解释
+        title: String(r[0] ?? '').trim(),
+        body: String(r[2] ?? '').trim(),
+        tags: tagNames,
+        applicable_scene: String(r[4] ?? '').trim() || undefined,
+        source_note: String(r[5] ?? '').trim() || undefined,
+        is_home_recommended: String(r[6] ?? '否').trim() === '是',
+      })
+    }
+    // eslint-disable-next-line no-console
+    console.log(`📥 从 Excel 加载焦虑类型解释 ${items.length} 条`)
+    return items
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn('⚠️  无法加载焦虑类型 Excel，跳过：', (err as Error).message)
+    return []
+  }
+}
+
+// ============================================
 // 执行种子脚本
 // ============================================
 
@@ -1202,6 +1067,10 @@ async function main() {
   console.log('🚀 开始填充种子数据...\n')
 
   const conn = await getConnection()
+
+  // 加载 Excel 条目
+  const anxietyItems = loadAnxietyTypeItems()
+  const allItems = [...anxietyItems, ...KNOWLEDGE_ITEMS]
 
   try {
     // 1. 知识库分类
@@ -1221,7 +1090,7 @@ async function main() {
     // 2. 知识条目 + 标签
     // eslint-disable-next-line no-console
     console.log('📝 插入知识条目...')
-    for (const item of KNOWLEDGE_ITEMS) {
+    for (const item of allItems) {
       const categoryId = categoryIds[item.categoryIndex]
       const [result] = await conn.execute(
         `INSERT INTO knowledge_items
@@ -1259,7 +1128,7 @@ async function main() {
       }
     }
     // eslint-disable-next-line no-console
-    console.log(`   ✅ ${KNOWLEDGE_ITEMS.length} 条知识内容创建完成`)
+    console.log(`   ✅ ${allItems.length} 条知识内容创建完成（含 Excel ${anxietyItems.length} 条）`)
 
     // 3. 首页名言
     // eslint-disable-next-line no-console
