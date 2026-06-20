@@ -1,7 +1,7 @@
 # TODO.md — 待办清单
 
-> 最后更新：2026-06-17
-> 当前版本：V0.3.0
+> 最后更新：2026-06-20
+> 当前版本：V0.4.0
 
 ---
 
@@ -91,6 +91,11 @@
 - [x] 百宝箱详情页
 - [x] 164 条种子数据（8 分类全覆盖）
 - [x] 首页随机推荐
+
+### Phase 15：功能入口页与 Coming Soon ✅
+- [x] Coming Soon 页面完善（feature 参数化、状态标识、返回按钮）
+- [x] 功能入口页 emoji 修复 + feature 参数传递
+- [x] Feature metadata 配置化
 
 ### Phase 13：个人笔记 ✅
 - [x] GET/POST /api/notes

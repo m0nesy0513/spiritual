@@ -42,6 +42,13 @@
 - 百宝箱分类栏桌面箭头 + 手机滑动
 - 知识摘要优先适用场景
 
+**Coming Soon / 功能入口页**
+- `/coming-soon` 页面支持 `?feature=` 参数：4 个待上线功能各自展示独立信息（图标/名称/描述/开发状态）
+- 新增返回按钮 + 首页按钮，符合交互规范
+- Feature metadata 配置化：`src/config/features.ts`
+- 功能入口页卡片 emoji 修复 + feature key 传递
+- 修复 `useSearchParams` SSR Suspense 边界问题
+
 ---
 
 ## [0.3.0] — 2026-06-17
