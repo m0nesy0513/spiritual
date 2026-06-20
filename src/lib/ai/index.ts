@@ -49,8 +49,6 @@ export async function chatCompletion(
         max_tokens: req.maxTokens || aiConfig.deepseek.maxTokens,
         temperature: req.temperature ?? aiConfig.deepseek.temperature,
         stream: false,
-        // GLM-5V-Turbo 要求 thinking 参数
-        thinking: { type: 'disabled' },
       }),
       signal: AbortSignal.timeout(aiConfig.timeoutMs),
     })
@@ -59,6 +57,14 @@ export async function chatCompletion(
       const delay = (retryCount + 1) * 5000 // 5s, 10s, 15s, 20s, 25s 退避
       console.log(`[AI] Rate limited (attempt ${retryCount + 1}/5), waiting ${delay}ms...`)
       await sleep(delay)
+      return chatCompletion(req, retryCount + 1)
+    }
+
+    // 智谱 API 间歇性 400（参数校验抖动等），重试一次
+    if (response.status === 400 && retryCount < 1) {
+      const errText = await response.text()
+      console.log(`[AI] Bad request (attempt ${retryCount + 1}/2), body: ${errText.slice(0, 200)}`)
+      await sleep(2000)
       return chatCompletion(req, retryCount + 1)
     }
 
