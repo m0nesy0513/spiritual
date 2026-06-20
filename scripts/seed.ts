@@ -237,152 +237,9 @@ const KNOWLEDGE_ITEMS: SeedKnowledgeItem[] = [
   // ⚠️ 社交媒体套路拆解（categoryIndex: 2）已迁移至 Excel：
   //    社交媒体焦虑知识库_社交媒体套路拆解_新增100条版.xlsx（100 条）
   //    由 loadMediaTrapItems() 动态读取，见文件底部。
-  // ---------- CBT / 心理学方法（8 条）----------
-  {
-    categoryIndex: 3,
-    title: '事实与推测区分',
-    body: `## 事实与推测区分
-
-这是 CBT 中最基础也最有效的技术之一。
-
-**事实（可以验证的）：**
-- 她发了一条朋友圈展示旅行照片
-- 她拿到了研究生录取通知
-
-**推测（你自己加上去的）：**
-- 她过得一定很开心
-- 她的人生一切顺利
-- 我比不上她
-
-**焦虑往往来自把推测当成事实。** 在做出结论之前，先问自己：这是我看到的，还是我推断的？`,
-    tags: ['CBT', '认知', '事实', '推测'],
-    applicable_scene: '任何产生焦虑时进行认知梳理',
-  },
-  {
-    categoryIndex: 3,
-    title: '自动化想法识别',
-    body: `## 自动化想法识别
-
-"自动化想法"是指在你看到某些内容时自动冒出来的消极念头。
-
-**常见自动化想法：**
-- "我又落后了"
-- "我永远做不到"
-- "为什么我不如别人"
-
-**练习步骤：**
-1. 注意你的情绪变化（焦虑、低落）→ 回溯刚才看了什么
-2. 捕捉冒出来的那个想法
-3. 把它写下来，问自己：这是事实还是我的解读？
-4. 用更客观的想法替代它`,
-    tags: ['CBT', '自动化想法', '认知'],
-    applicable_scene: '刷社交媒体后感到情绪低落时',
-  },
-  {
-    categoryIndex: 3,
-    title: '认知重评技术',
-    body: `## 认知重评技术
-
-认知重评是重新评估和解释一个情境的方法。
-
-**当看到引发焦虑的内容时，尝试重评：**
-
-| 初始想法 | 重评后的想法 |
-|---------|------------|
-| 她过得真好，我不如她 | 她展示了想让人看到的部分 |
-| 我太差劲了 | 我正在自己的节奏里前进 |
-| 所有人都在进步只有我在原地 | 每个人面临不同的处境和挑战 |
-
-**重评不是自我欺骗，而是用一个更完整的视角看问题。**`,
-    tags: ['认知重评', 'CBT', '视角'],
-    applicable_scene: '用于情绪被触发后进行理性调整',
-  },
-  {
-    categoryIndex: 3,
-    title: '去灾难化技术',
-    body: `## 去灾难化技术
-
-焦虑常常让人把事情想得比实际上更糟糕。
-
-**去灾难化的步骤：**
-1. 识别可怕的想法（"我这辈子完了"）
-2. 问自己：最坏的情况是什么？发生的概率有多大？
-3. 即使最坏情况发生，我能做什么？
-4. 正常情况（更有可能性）会是什么结果？
-
-**绝大多数你担心的"灾难"，既不会发生，也没有你想象中那么可怕。**`,
-    tags: ['去灾难化', 'CBT', '焦虑'],
-    applicable_scene: '焦虑被放大到失控时',
-  },
-  {
-    categoryIndex: 3,
-    title: '行为激活：从小事开始',
-    body: `## 行为激活：从小事开始
-
-当焦虑和低落让人提不起劲时，行为激活是一个有效的恢复方法。
-
-**原理：**
-- 焦虑让人回避活动 → 回避让生活缩小 → 产生更多焦虑
-- 打破循环的方法是从最小的行动开始
-
-**很小的行动也能带来变化：**
-1. 整理一下桌面
-2. 散十分钟步
-3. 给朋友发一条消息
-4. 写下今天一个开心的瞬间
-
-**行动产生能量，而不是能量产生行动。**`,
-    tags: ['行为激活', '行动', '情绪'],
-    applicable_scene: '焦虑让人不想做任何事时',
-  },
-  {
-    categoryIndex: 3,
-    title: '感恩练习',
-    body: `## 感恩练习
-
-研究显示，有意识地练习感恩可以显著改善情绪和减轻焦虑。
-
-**简单练习：**
-- 每晚写下今天 3 件让你感恩的小事
-- 可以是非常微小的事：喝到一杯好喝的咖啡、天气很好、收到一条暖心的消息
-
-**感恩不是否认困难，而是注意到那些被焦虑掩盖的、生活中正在正常运行的部分。**`,
-    tags: ['感恩', '积极心理学', '情绪'],
-    applicable_scene: '每天睡前或早晨进行',
-  },
-  {
-    categoryIndex: 3,
-    title: '正念呼吸练习',
-    body: `## 正念呼吸练习
-
-正念（Mindfulness）是指有意识地、不加评判地关注当下。
-
-**一个简单的 3 分钟正念呼吸练习：**
-1. 第一分钟：闭上眼睛，注意身体的感觉（坐着的重量、脚的触感）
-2. 第二分钟：把注意力集中在呼吸上（鼻尖的空气流、胸腹的起伏）
-3. 第三分钟：将注意力扩展到整个身体，感受当下的存在感
-
-**如果走神了，不要批评自己，轻轻地把注意力拉回来就行。反复走神反复拉回，这就是练习的本质。**`,
-    tags: ['正念', '呼吸', '冥想'],
-    applicable_scene: '感到焦虑、烦躁、或思维被社交媒体占据时',
-  },
-  {
-    categoryIndex: 3,
-    title: '情绪标签化',
-    body: `## 情绪标签化
-
-给自己的情绪贴上准确的标签，本身就能缓解焦虑。
-
-**研究显示，当人们能够准确命名自己的情绪时，大脑杏仁核（负责恐惧反应）的活动水平会下降。**
-
-**练习：**
-- 不只是"我很难受"，而是"我感到焦虑"或"我感到失望"
-- 进一步细化：是"被比较感压住了"还是"对未来的不确定感"还是"对自己不满"
-
-**越具体越好。命名它，你就开始掌控它。**`,
-    tags: ['情绪', '标签', '自我觉察'],
-    applicable_scene: '任何情绪波动时都可以练习',
-  },
+  // ⚠️ CBT / 心理学方法（categoryIndex: 3）已迁移至 Excel：
+  //    scripts/CBT心理学方法100条.xlsx（100 条）
+  //    由 loadCbtItems() 动态读取，见文件底部。
 
   // ---------- 情绪急救步骤（6 条）----------
   {
@@ -977,6 +834,50 @@ function loadMediaTrapItems(): SeedKnowledgeItem[] {
 }
 
 // ============================================
+// 从 Excel 加载 CBT / 心理学方法（100 条）
+// ============================================
+
+function loadCbtItems(): SeedKnowledgeItem[] {
+  try {
+    const excelPath = path.resolve(
+      __dirname,
+      '../scripts/CBT心理学方法100条.xlsx',
+    )
+    const wb = XLSX.readFile(excelPath)
+    const sheet = wb.Sheets[wb.SheetNames[0]]
+    const raw = XLSX.utils.sheet_to_json<any[]>(sheet, { header: 1 })
+
+    const items: SeedKnowledgeItem[] = []
+    for (let i = 3; i <= 102; i++) {
+      const r = raw[i]
+      if (!r || !r[0]) continue
+
+      const tagNames = String(r[3] ?? '')
+        .split(/[,，]/)
+        .map((t: string) => t.trim())
+        .filter((t: string) => t.length > 0)
+
+      items.push({
+        categoryIndex: 3, // CBT / 心理学方法
+        title: String(r[0] ?? '').trim(),
+        body: String(r[2] ?? '').trim(),
+        tags: tagNames,
+        applicable_scene: String(r[4] ?? '').trim() || undefined,
+        source_note: String(r[5] ?? '').trim() || undefined,
+        is_home_recommended: String(r[6] ?? '否').trim() === '是',
+      })
+    }
+    // eslint-disable-next-line no-console
+    console.log(`📥 从 Excel 加载 CBT / 心理学方法 ${items.length} 条`)
+    return items
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn('⚠️  无法加载 CBT Excel，跳过：', (err as Error).message)
+    return []
+  }
+}
+
+// ============================================
 // 执行种子脚本
 // ============================================
 
@@ -989,7 +890,8 @@ async function main() {
   // 加载 Excel 条目
   const anxietyItems = loadAnxietyTypeItems()
   const mediaTrapItems = loadMediaTrapItems()
-  const allItems = [...anxietyItems, ...mediaTrapItems, ...KNOWLEDGE_ITEMS]
+  const cbtItems = loadCbtItems()
+  const allItems = [...anxietyItems, ...mediaTrapItems, ...cbtItems, ...KNOWLEDGE_ITEMS]
 
   try {
     // 1. 知识库分类
@@ -1047,7 +949,7 @@ async function main() {
       }
     }
     // eslint-disable-next-line no-console
-    console.log(`   ✅ ${allItems.length} 条知识内容创建完成（含 Excel ${anxietyItems.length + mediaTrapItems.length} 条）`)
+    console.log(`   ✅ ${allItems.length} 条知识内容创建完成（含 Excel ${anxietyItems.length + mediaTrapItems.length + cbtItems.length} 条）`)
 
     // 3. 首页名言
     // eslint-disable-next-line no-console
