@@ -1,5 +1,4 @@
 import { MobileLayout } from '@/components/layout'
-import { appConfig } from '@/config/app.config'
 import { COMING_SOON_FEATURES } from '@/config/features'
 
 interface FeatureCardData {
@@ -9,20 +8,16 @@ interface FeatureCardData {
   href: string
 }
 
-/**
- * Live features — always available.
- * Coming-soon features run through COMING_SOON_FEATURES so each one gets
- * unique metadata (title / icon / desc / status) on the placeholder page.
- */
 function buildCards(): FeatureCardData[] {
   const cards: FeatureCardData[] = [
     { icon: '📝', title: '个人笔记', desc: '记录你的反焦虑思考', href: '/notes' },
     { icon: '💬', title: '用户反馈', desc: '提交建议或问题', href: '/suggestions' },
+    // 情绪疏导室 — 纯粹占位，不做独立页面
+    { icon: '🧘', title: '情绪疏导室', desc: 'Coming Soon', href: '/coming-soon' },
   ]
 
-  // Coming-soon cards — pass the feature key so /coming-soon can show specific info
+  // Coming-soon cards with specific metadata
   const comingSoonCards: FeatureCardData[] = [
-    { key: 'emotion_room' },
     { key: 'long_term_review' },
     { key: 'achievement_wall' },
     { key: 'anxiety_archive' },

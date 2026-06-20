@@ -16,13 +16,6 @@ export interface FeatureMeta {
 }
 
 export const COMING_SOON_FEATURES: Record<string, FeatureMeta> = {
-  emotion_room: {
-    key: 'emotion_room',
-    title: '情绪疏导室',
-    icon: '🧘',
-    description: '选择当下情绪，获得定制化的冥想引导、呼吸练习和舒缓音乐推荐，帮助你快速平复焦虑。',
-    status: '规划中',
-  },
   long_term_review: {
     key: 'long_term_review',
     title: '长期复盘',
