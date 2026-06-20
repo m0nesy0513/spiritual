@@ -60,6 +60,6 @@ export function getSession(request: Request) {
   return {
     userId: request.headers.get('x-user-id') || '',
     isAdmin: request.headers.get('x-user-is-admin') === 'true',
-    username: request.headers.get('x-user-username') || '',
+    username: decodeURIComponent(request.headers.get('x-user-username') || ''),
   }
 }

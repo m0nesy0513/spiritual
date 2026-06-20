@@ -53,7 +53,7 @@ export default async function proxy(request: NextRequest) {
   const headers = new Headers(request.headers)
   headers.set('x-user-id', session.userId)
   headers.set('x-user-is-admin', String(session.isAdmin))
-  headers.set('x-user-username', session.username)
+  headers.set('x-user-username', encodeURIComponent(session.username))
 
   return NextResponse.next({ request: { headers } })
 }
