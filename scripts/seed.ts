@@ -234,135 +234,9 @@ const KNOWLEDGE_ITEMS: SeedKnowledgeItem[] = [
     applicable_scene: '识别社交媒体中"社交达人"形象',
   },
 
-  // ---------- 社交媒体套路拆解（8 条）----------
-  {
-    categoryIndex: 2,
-    title: '选择性展示的本质',
-    body: `## 选择性展示的本质
-
-社交媒体最核心的特征是：**人们只展示他们想让你看到的部分。**
-
-这就像每个人都在拍一部关于自己的"宣传片"，而不是"纪录片"。
-
-**理解这一点：**
-- 你在拿别人的"宣传片"和你的"完整生活"进行比较
-- 别人也有烦恼、失败、无聊的时刻，只是你不知道
-- 这不是欺骗，而是人性的自然倾向——我们都希望展示好的一面`,
-    tags: ['选择性展示', '比较', '人设'],
-    applicable_scene: '理解社交媒体展示的底层逻辑',
-  },
-  {
-    categoryIndex: 2,
-    title: '滤镜与修图文化',
-    body: `## 滤镜与修图文化
-
-现在的手机 App 让任何人都能在几秒钟内美化照片。皮肤、五官、身材、光线都可以调整。
-
-**影响：**
-- 长期看修过的图片会让人对"正常的外貌"产生认知偏差
-- 你有可能在拿自己的"镜子里的脸"和别人的"精修图"比较
-- 很多博主公开承认：真人和照片差异很大`,
-    tags: ['滤镜', '修图', '外貌'],
-    applicable_scene: '看到精修图片时提醒自己这是处理过的',
-  },
-  {
-    categoryIndex: 2,
-    title: '叙事包装与故事线',
-    body: `## 叙事包装与故事线
-
-社交媒体上的内容不只是图片和文字，它们往往包含一个精心设计的"故事线"。
-
-**常见叙事模式：**
-- "从零到一"逆袭故事（省略了中间的反复和挫折）
-- "日常 Vlog"（每一个镜头都经过了编排）
-- "随手拍"（其实已经拍了 50 张选了 1 张）
-
-**识别这些叙事包装，能帮助你看透内容的本质。**`,
-    tags: ['叙事', '故事', '包装'],
-    applicable_scene: '识别社交媒体内容的叙事结构',
-  },
-  {
-    categoryIndex: 2,
-    title: '算法推荐与情绪喂养',
-    body: `## 算法推荐与情绪喂养
-
-社交平台的推荐算法会分析你的行为，持续推送容易引发情绪反应的内容。
-
-**算法的工作方式：**
-- 你在一个内容上停留更久 → 算法推送更多同类内容
-- 引发强烈情绪（焦虑、愤怒、羡慕）的内容更容易被传播
-- 你搜索"焦虑"相关内容 → 算法认为你喜欢这类内容
-
-**意识到这一点，你可以主动打破信息茧房。**`,
-    tags: ['算法', '推荐', '情绪'],
-    applicable_scene: '理解为什么总是刷到引发焦虑的内容',
-  },
-  {
-    categoryIndex: 2,
-    title: '商业合作与软广识别',
-    body: `## 商业合作与软广识别
-
-大量社交媒体内容背后是商业利益。
-
-**识别信号：**
-- 看起来很自然的推荐，其实是付费广告
-- 博主展示的"日常用品"可能是品牌赞助
-- 旅行、体验可能由酒店/品牌提供
-
-**当你知道这是一个广告时，它的说服力就会大大降低。**`,
-    tags: ['广告', '赞助', '商业'],
-    applicable_scene: '识别社交媒体中的软广告和商业合作',
-  },
-  {
-    categoryIndex: 2,
-    title: '精心策划的"随手拍"',
-    body: `## 精心策划的"随手拍"
-
-很多图片看起来像是不经意间拍下的，但实际上经过了大量的准备。
-
-**常见的策划方法：**
-- 环境清理：把杂乱的物品移出镜头
-- 光线调整：选择最佳时间和角度
-- 多次拍摄：从几十张中选择最好的一张
-- 后期处理：裁剪、调色、滤镜
-
-**"随手"只是一种呈现风格，不是拍摄方式。**`,
-    tags: ['策划', '拍摄', '摆拍'],
-    applicable_scene: '看穿"随手拍"背后的准备工作',
-  },
-  {
-    categoryIndex: 2,
-    title: '人设的一致性与表演成本',
-    body: `## 人设的一致性与表演成本
-
-维持一个社交媒体人设需要持续的努力。发布越多精致内容，对下一次发布的要求就越高。
-
-**表演成本：**
-- 时间成本：策划、拍摄、修图、写文案
-- 心理成本：担心内容不受欢迎、人设崩塌
-- 经济成本：服装、场景、设备
-
-**与其羡慕别人的人设，不如把精力放在真实的自己身上。**`,
-    tags: ['人设', '表演', '成本'],
-    applicable_scene: '理解维持人设需要付出的代价',
-  },
-  {
-    categoryIndex: 2,
-    title: '幸存者偏差与可见性偏见',
-    body: `## 幸存者偏差与可见性偏见
-
-社交媒体上存在严重的"幸存者偏差"：你只能看到"成功的"案例，看不到大量"失败的"案例。
-
-**例子：**
-- 100 个考研人中只有 5 个晒了录取通知，但你只看到这 5 个
-- 创业失败的人很少发帖，成功的人频繁出现
-- 算法把"成功案例"推到你的首页，让你觉得"所有人都在成功"
-
-**记住：你没看到的失败者远多于你看到的成功者。**`,
-    tags: ['幸存者偏差', '统计', '认知'],
-    applicable_scene: '正确看待社交媒体上的成功案例比例',
-  },
-
+  // ⚠️ 社交媒体套路拆解（categoryIndex: 2）已迁移至 Excel：
+  //    社交媒体焦虑知识库_社交媒体套路拆解_新增100条版.xlsx（100 条）
+  //    由 loadMediaTrapItems() 动态读取，见文件底部。
   // ---------- CBT / 心理学方法（8 条）----------
   {
     categoryIndex: 3,
@@ -1059,6 +933,50 @@ function loadAnxietyTypeItems(): SeedKnowledgeItem[] {
 }
 
 // ============================================
+// 从 Excel 加载社交媒体套路拆解（100 条）
+// ============================================
+
+function loadMediaTrapItems(): SeedKnowledgeItem[] {
+  try {
+    const excelPath = path.resolve(
+      __dirname,
+      '../社交媒体焦虑知识库_社交媒体套路拆解_新增100条版.xlsx',
+    )
+    const wb = XLSX.readFile(excelPath)
+    const sheet = wb.Sheets[wb.SheetNames[0]]
+    const raw = XLSX.utils.sheet_to_json<any[]>(sheet, { header: 1 })
+
+    const items: SeedKnowledgeItem[] = []
+    for (let i = 3; i <= 102; i++) {
+      const r = raw[i]
+      if (!r || !r[0]) continue
+
+      const tagNames = String(r[3] ?? '')
+        .split(/[,，]/)
+        .map((t: string) => t.trim())
+        .filter((t: string) => t.length > 0)
+
+      items.push({
+        categoryIndex: 2, // 社交媒体套路拆解
+        title: String(r[0] ?? '').trim(),
+        body: String(r[2] ?? '').trim(),
+        tags: tagNames,
+        applicable_scene: String(r[4] ?? '').trim() || undefined,
+        source_note: String(r[5] ?? '').trim() || undefined,
+        is_home_recommended: String(r[6] ?? '否').trim() === '是',
+      })
+    }
+    // eslint-disable-next-line no-console
+    console.log(`📥 从 Excel 加载社交媒体套路拆解 ${items.length} 条`)
+    return items
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn('⚠️  无法加载社交媒体套路拆解 Excel，跳过：', (err as Error).message)
+    return []
+  }
+}
+
+// ============================================
 // 执行种子脚本
 // ============================================
 
@@ -1070,7 +988,8 @@ async function main() {
 
   // 加载 Excel 条目
   const anxietyItems = loadAnxietyTypeItems()
-  const allItems = [...anxietyItems, ...KNOWLEDGE_ITEMS]
+  const mediaTrapItems = loadMediaTrapItems()
+  const allItems = [...anxietyItems, ...mediaTrapItems, ...KNOWLEDGE_ITEMS]
 
   try {
     // 1. 知识库分类
@@ -1128,7 +1047,7 @@ async function main() {
       }
     }
     // eslint-disable-next-line no-console
-    console.log(`   ✅ ${allItems.length} 条知识内容创建完成（含 Excel ${anxietyItems.length} 条）`)
+    console.log(`   ✅ ${allItems.length} 条知识内容创建完成（含 Excel ${anxietyItems.length + mediaTrapItems.length} 条）`)
 
     // 3. 首页名言
     // eslint-disable-next-line no-console
